@@ -179,7 +179,7 @@ private void checkForLocationSettings() {
 ```
 
 #### Step 5. Create HyperTrack user
-Create a HyperTrack user to identify the mobile device. To create use, go to [ProfilePresenter.java](https://github.com/hypertrack/hypertrack-live-android/blob/master/app/src/main/java/io/hypertrack/sendeta/presenter/ProfilePresenter.java). When the user taps login, get the name of the user and use the following function to create a user.
+Create a HyperTrack user to identify the mobile device. You can do so when your user logs-in into your app.
 
 ```java
 UserParams userParams = new UserParams()
@@ -208,13 +208,13 @@ You can **optionally** enable the crashlytics crash reporting tool.
 1. Get your Crashlytics key from the **Add Your API Key** section [here](https://fabric.io/kits/android/crashlytics/install).
 2. Paste the key to [fabric.properties](https://github.com/hypertrack/hypertrack-live-android/blob/master/app/fabric.properties). Create a new fabric.properties file, if it doesn't exist already.
 
-### Start a Live Location trip
+### Start a trip
 You are now all set with the basic setup. Are you ready to rock and roll?
 
-#### Step 1. Show Live Location view
-Now to start a Live Location trip, the first thing that you need to do is to add a destination. For this, we will need a location picker. HyperTrack Location View has a location picker within it. Once the user selects a location with the help of our inbuilt location picker, the SDK gives a callback to the app with the selected location so that the app can start a trip.
+#### Step 1. Add destination
+The first thing that you need to do is to add a destination. For this, we will need a location picker. HyperTrack SDK has a location picker within it. Once the user selects a location with the help of our inbuilt location picker, the SDK gives a callback to the app with the selected location so that the app can start a trip.
 
-For  starter project, Check ```Home.java``` embedding the HyperTrackMapFragment view in  ```content_home.xml``` view. Initialize the HyperTrackMapFragment inside ```oncreate``` method of ```Home``` activity and set your implementation of [HyperTrackMapAdapter](https://github.com/hypertrack/hypertrack-live-android/blob/master/app/src/main/java/io/hypertrack/sendeta/view/HomeMapAdapter.java), [MapFragmentCallback](https://github.com/hypertrack/hypertrack-live-android/blob/6c801e65a628769cd160ef7b0b4f77fd68df7818/app/src/main/java/io/hypertrack/sendeta/view/Home.java#L137-L213) for HyperTrackMapFragment.
+For  starter project, check ```Home.java``` embedding the HyperTrackMapFragment view in  ```content_home.xml``` view. Initialize the HyperTrackMapFragment inside ```oncreate``` method of ```Home``` activity and set your implementation of [HyperTrackMapAdapter](https://github.com/hypertrack/hypertrack-live-android/blob/master/app/src/main/java/io/hypertrack/sendeta/view/HomeMapAdapter.java), [MapFragmentCallback](https://github.com/hypertrack/hypertrack-live-android/blob/6c801e65a628769cd160ef7b0b4f77fd68df7818/app/src/main/java/io/hypertrack/sendeta/view/Home.java#L137-L213) for HyperTrackMapFragment.
 
 ```java
 MapFragmentCallback callback = new MapFragmentCallback(){
@@ -254,8 +254,8 @@ public void onExpectedPlaceSelected(Place expectedPlace) {
 ```
 
 #### Step 2. Create and track action
+When the user selects a destination, you will get a callback in the ```onExpectedPlaceSelected``` function of your ```MapFragmentCallback``` instance. This is the right time to start a trip. For starting a trip, you need to create a session. This can be achieved by creating a 'visit' [action](https://docs.hypertrack.com/api/entities/action.html).  
 
-When the user selects a location, you will get a callback in the ```onExpectedPlaceSelected``` function of your ```MapFragmentCallback``` instance. This is the right time to start a trip. For starting a trip, you need to create a session. This can be achieved by creating a 'visit' [action](https://docs.hypertrack.com/api/entities/action.html).  
 You will need two things to create an action. 
 1. ```expectedPlace``` - This is the destination for the visit. You have it after you select the destination.
 2. ```collectionId``` - A ```collectionId``` is an identifier created by you for the Live Location trip. A ```collectionId``` is what needs to be shared with the friend, so they can join your trip and share their location. We chose it to be the UUID. You can use your own internal identifiers. 
@@ -268,22 +268,22 @@ ActionParams actionParams = new ActionParamsBuilder()
                 .setExpectedPlace(expectedPlace)
                 .build();
 
-// Call assignAction to start the tracking action
-HyperTrack.createAndAssignAction(actionParams, new HyperTrackCallback() {
+// Call createAction to create an action
+HyperTrack.createAction(actionParams, new HyperTrackCallback() {
     @Override
     public void onSuccess(@NonNull SuccessResponse response) {
         if (response.getResponseObject() != null) {
             Action action = (Action) response.getResponseObject();
             
-            // Handle createAndAssign Action API success here
-            Toast.makeText(this, "Live Location successful shared back", Toast.LENGTH_SHORT).show();
+            // Handle createAction API success here
+            Toast.makeText(this, "Live location shared", Toast.LENGTH_SHORT).show();
         }
     }
 
     @Override
     public void onError(@NonNull ErrorResponse errorResponse) {
-        // Handle createAndAssign Action API error here
-        Toast.makeText(this, "Live Location successful shared back", Toast.LENGTH_SHORT).show();
+        // Handle createAction API error here
+        Toast.makeText(this, "Live location not shared", Toast.LENGTH_SHORT).show();
     }
 });
 ```
@@ -312,7 +312,7 @@ startActivityForResult(Intent.createChooser(sharingIntent, "Share via"),
 ```
 
 ### Track or join an ongoing trip
-If you have completed the steps in above section, you have a user who has started a Live Location session. Once their friend receives a ```collectionId``` (either through your own backend or through a messaging app), she can use it to track the user and optionally join the trip if you add a few lines of code as described in the following steps.
+You now have a user who has started a Live Location session. Once their friend receives a ```collectionId``` (either through your own backend or through a messaging app), she can use it to track the user and optionally join the trip by adding the few lines of code as described in the following steps.
 
 #### Step 1. Track ongoing trip
 To track the user, use the following function. Although the tracking has started in the SDK, visualizing it requires you to embed HyperTrack's map fragment in your activity containing hypertrack map view. 
@@ -338,22 +338,22 @@ ActionParams actionParams = new ActionParamsBuilder()
                 .setExpectedPlace(expectedPlace)
                 .build();
 
-// Call assignAction to start the tracking action
-HyperTrack.createAndAssignAction(actionParams, new HyperTrackCallback() {
+// Call createAction to create an action
+HyperTrack.createAction(actionParams, new HyperTrackCallback() {
     @Override
     public void onSuccess(@NonNull SuccessResponse response) {
         if (response.getResponseObject() != null) {
             Action action = (Action) response.getResponseObject();
             
-            // Handle createAndAssign Action API success here
-            Toast.makeText(this, "Live Location successful shared back", Toast.LENGTH_SHORT).show();
+            // Handle createAction API success here
+            Toast.makeText(this, "Live location shared", Toast.LENGTH_SHORT).show();
         }
     }
 
     @Override
     public void onError(@NonNull ErrorResponse errorResponse) {
-        // Handle createAndAssign Action API error here
-        Toast.makeText(this, "Live Location successful shared back", Toast.LENGTH_SHORT).show();
+        // Handle createAction API error here
+        Toast.makeText(this, "Live location not shared", Toast.LENGTH_SHORT).show();
     }
 });
 ```
@@ -363,7 +363,7 @@ Now to see the result, go to the other device and set up the user. After that cl
 #### Step 2. Join ongoing trip
 In this step, we will see how the friend can share her Live Location and join the trip. To join the trip, an action with the same collectionId needs to be created. This step is similar to Step 6. But this time it is a collectionId of an existing trip and NOT a new one in Step 6.
 
-For starter project, add this code to `onShareLiveLocationBack()` when the user taps the 'Share Live Location' button. It creates and assign action for your friends Live Location session.
+For starter project, add this code to `onShareLiveLocationBack()` when the user taps the 'Share Live Location' button. It creates an action for your friends' Live Location session.
 ```java
 ActionParams actionParams = new ActionParamsBuilder()
                 .setCollectionId(collectionId != null ? collectionId : UUID.randomUUID().toString())
@@ -372,21 +372,21 @@ ActionParams actionParams = new ActionParamsBuilder()
                 .build();
 
 // Call assignAction to start the tracking action
-HyperTrack.createAndAssignAction(actionParams, new HyperTrackCallback() {
+HyperTrack.createAction(actionParams, new HyperTrackCallback() {
     @Override
     public void onSuccess(@NonNull SuccessResponse response) {
         if (response.getResponseObject() != null) {
             Action action = (Action) response.getResponseObject();
             
-            // Handle createandAssign Action API success here
-            Toast.makeText(this, "Live Location successful shared back", Toast.LENGTH_SHORT).show();
+            // Handle createAction API success here
+            Toast.makeText(this, "Live location shared", Toast.LENGTH_SHORT).show();
         }
     }
 
     @Override
     public void onError(@NonNull ErrorResponse errorResponse) {
-        // Handle createandAssign Action API error here
-        Toast.makeText(this, "Live Location successful shared back", Toast.LENGTH_SHORT).show();
+        // Handle createAction API error here
+        Toast.makeText(this, "Live location not shared", Toast.LENGTH_SHORT).show();
     }
 });
 ```
