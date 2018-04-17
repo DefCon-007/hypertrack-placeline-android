@@ -1,12 +1,13 @@
-# Activity Tracking and Live Location Sharing
+# HyperTrack Placeline
 [![Build Status](https://travis-ci.org/hypertrack/hypertrack-live-android.svg?branch=master)](https://travis-ci.org/hypertrack/hypertrack-live-android) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/4fad0c93fd3749d690571a7a728ce047)](https://www.codacy.com/app/piyushguptaece/hypertrack-live-android?utm_source=github.com&utm_medium=referral&utm_content=hypertrack/hypertrack-live-android&utm_campaign=badger) [![Slack Status](http://slack.hypertrack.com/badge.svg)](http://slack.hypertrack.com) [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-HyperTrack%20Live-brightgreen.svg?style=flat)](https://android-arsenal.com/details/3/5754) [![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://opensource.org/licenses/MIT) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-This open source repo uses HyperTrack for Live Location Sharing and Activity Tracking. Hypertrack Live helps you share your Live Location with friends through your favorite messaging app when on the way to meet up. You can also see your activities organized as chronological cards so that tapping on each card gives you the locations of the activity. In case you are using iOS, refer to our open source iOS [repository](https://github.com/hypertrack/hypertrack-live-ios).
+Billions of trips happen on the planet every day. These trips lead to people meeting each other at home, work or some place else. Friends, family and colleagues use their phones to check where the other has reached, often coordinating when and where to meet. Whether you are a messaging app or a marketplace with messaging capability, your users are likely messaging each other about this. It’s time to solve their problem better. 
 
-| Usecase       |  Description  |  Tutorial     |
-| ------------- | ------------- | ------------- |
-| Activity Tracking  | Track your activities chronologicaly through the day. [Description](#activity-tracking) | [Build yourself 👩‍💻](#build-activity-tracking-in-your-app) |
-| Live Location Sharing  | Share your Live Location with friends and see theirs. [Description](#live-location-sharing) | [Build yourself 👩‍💻](#build-live-location-sharing-in-your-app)|
+If your users can track their Uber coming to them turn-by-turn with an accurate ETA, why not track friends, colleagues, buyers and sellers similarly! Facebook Messenger and Google Maps recently added functionality for live location sharing and Whatsapp is likely to follow soon. Now it’s your turn. 
+
+Use this open source repo of the [Hypertrack Live](https://play.google.com/store/apps/details?id=io.hypertrack.sendeta&hl=en) app to build live location sharing experience within your app within a few hours. HyperTrack Live app helps you share your Live Location with friends and family through your favorite messaging app when you are on the way to meet up. HyperTrack Live uses [HyperTrack](https://www.hypertrack.com/) APIs and SDKs. 
+
+In case you are using iOS, refer to our open source iOS [repository](https://github.com/hypertrack/hypertrack-live-ios).
 
 - [Activity Tracking](#activity-tracking)
 - [Live Location Sharing](#live-location-sharing)
@@ -17,30 +18,16 @@ This open source repo uses HyperTrack for Live Location Sharing and Activity Tra
 - [Contribute](#contribute)
 - [Support](#support)
 
-## Activity Tracking
-One of the two core features of Hypertrack Live is Placeline. Placeline is useful in tracking your daily activity with near-zero battery impact. We automagically use the combination of device sensors - GPS, WiFi, network, accelerometer, pedometer, gyroscope, compass - to deliver accuracy. Placeline is powered by the HyperTrack SDK which collects location and activity data for your users. It includes segments like stop 🛑, walk 🚶‍♀️,run 🏃‍♀️,drive 🏎️ and cycling 🚴. 
-
-<p align="center">
-<kbd>
-<img src="asset/placeline.gif" alt="Placeline" width="380" height="633">
-</kbd>
-</p>
-
-## Live Location Sharing
-The other core feature of Hypertrack Live is Live Location Sharing. Live Location Sharing is useful for consumer apps like messengers and social apps where two or more people want to share their Live Location with each other when on the way to meet up. It is also useful for marketplace aggregators where the transaction starts online 💻📱 but requires people to meet offline for fulfillment. It helps you solve the consumer's anxiety of “where are you⁉️”.
-
 <p align="center">
 <kbd>
 <img src="asset/live_location.gif" alt="Live Location Sharing" width="380" height="633">
 </kbd>
 </p>
 
-## Usage
-#### To use this app
+# Clone the repo
 
 1. Clone this repository
 ```bash
-# Clone this repository
 $ git clone https://github.com/hypertrack/hypertrack-live-android.git
 ```
 
@@ -51,180 +38,14 @@ HyperTrack.initialize(this.getApplicationContext(), BuildConfig.HYPERTRACK_PK);
 
 3. Get the [Google Maps API key](https://developers.google.com/maps/documentation/android-api/signup) and add it to [api-keys.xml](https://github.com/hypertrack/hypertrack-live-android/blob/master/app/src/main/res/values/api-keys.xml).
 
-#### To build Placeline in your app, follow this [tutorial](#build-activity-tracking-in-your-app).
-#### To build Live Location Sharing in your app, follow this [tutorial](#build-live-location-sharing-in-your-app).
 
-## Build Activity Tracking in your app 
- - [Placeline format](#placeline-format)
- - [Setup HyperTrack SDK](#setup-hypertrack-sdk)
- - [Create Hypertrack user](#create-hypertrack-user)
- - [Start tracking](#start-tracking)
- - [Get Placeline in your app](#get-placeline-data-in-your-app)
-
-#### Placeline format
-Placeline object contains detailed information about the activity like the start time, end time, location, steps and more.
-An example JSON representation is given [here](https://docs.hypertrack.com/gettingstarted/activities.html#placeline).
-
-#### Setup HyperTrack SDK
-Set up the HyperTrack SDK by following these [instructions](https://dashboard.hypertrack.com/setup).
-
-#### Create HyperTrack user
-The next thing that you need to do is create a HyperTrack User. This would tag the location/activity data to the user and help you get useful filtered data in the form of Placeline. More details about the function [here](https://dashboard.hypertrack.com/setup). 
-
-```java
-UserParams userParams = new UserParams()
-                .setName(name)
-                .setPhone(phoneNumber)
-                .setPhoto(encodedImage)
-                .setLookupId(phoneNumber);
-                
-HyperTrack.getOrCreateUser(userParams, new HyperTrackCallback() {
-                @Override
-                public void onSuccess(@NonNull SuccessResponse successResponse) {
-                    // Handle success on getOrCreate user
-                    HyperTrack.startTracking();
-                }
-
-                @Override
-                public void onError(@NonNull ErrorResponse errorResponse) {
-                    // Handle error on getOrCreate user
-                    Toast.makeText(this, errorResponse.getErrorMessage(), Toast.LENGTH_SHORT).show();
-                }
-            });
-```
-
-#### Start tracking
-Start tracking for the created user by calling the following method
-```java
-HyperTrack.startTracking();
-```
-
-#### Get Placeline Data in your app
-Once tracking has started, implement the following function [placelineManager.getPlacelineData()](https://github.com/hypertrack/hypertrack-live-android/blob/master/app/src/main/java/io/hypertrack/sendeta/store/PlacelineManager.java#L43) and get [PlacelineData](https://github.com/hypertrack/hypertrack-live-android/blob/master/app/src/main/java/io/hypertrack/sendeta/model/PlacelineData.java). You are all set to use the rich activity data in your app.
-
-```java
-Date date = new Date();
-HyperTrack.getPlaceline(date, new HyperTrackCallback() {
-    @Override
-    public void onSuccess(@NonNull SuccessResponse response) {
-        // Handle getPlaceline success here
-        if (response != null) {
-            PlacelineData = (PlacelineData) response.getResponseObject();
-        }
-    }
-
-    @Override
-    public void onError(@NonNull ErrorResponse errorResponse) {
-        // Handle getPlaceline error here
-        Log.d("Placeline", "onError: " + errorResponse.getErrorMessage());
-    }
-});
-```
-
-#### Get Placeline View in your Android App
-
-#### Step 1: Setup Activity
-
-* **Firstly**, add the following xml snippet in your view layout to enable `PlacelineFragment`.
-
-```xml
-<fragment
-    android:id="@+id/placeline_fragment"
-    android:name="com.hypertrack.lib.internal.consumer.view.Placeline.PlacelineFragment"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:layout="@layout/placeline_fragment" />
-```
-
-* **Secondly**, instantiate `PlacelineFragment` in the onCreate method of the activity in which placeline fragment has been included.
-
-```java
-PlacelineFragment placelineFragment = (PlacelineFragment) getSupportFragmentManager().findFragmentById(R.id.placeline_fragment);
-```
-
-Once all of the above is done, the code snippet would look like as below.
-
-```java
-@Override
-protected void onCreate(Bundle savedInstanceState) {
-  super.onCreate(savedInstanceState);
-
-  ...
-
-  // Initialize Placeline Fragment added in Activity Layout
-  PlacelineFragment placelineFragment = (PlacelineFragment) getSupportFragmentManager().findFragmentById(R.id.placeline_fragment); 
-
-  ...
-}
-```
-
-#### Step 2: Disable ActionBar
-
-In case your AppTheme adds an ActionBar by default, disable the default Action Bar for the activity containing PlacelineFragment by adding the following under your Activity's theme style-tag in styles.xml file. Refer to Android documentation on [Setting up the AppBar](https://developer.android.com/training/appbar/setting-up.html).
-
-```xml
-<!-- Change Placeline activity's theme to remove default ActionBar. -->
-<style name="PlacelineActivityTheme" parent="Theme.AppCompat.Light.NoActionBar">
-    ...
-    <!-- We will be using the toolbar so no need to show ActionBar -->
-    <item name="windowActionBar">false</item>
-    <item name="windowNoTitle">true</item>
-    <item name="colorAccent">@color/colorAccent</item>
-	  ...
-</style>
-```
-
-Add the `android:theme` attribute to the `<activity>` tag in `AndroidManifest.xml` file.
-
-```xml
-<!-- Placeline Activity Tag -->
- <activity android:name=".PlacelineActivity"
-    android:theme="@style/PlacelineActivityTheme"/>
-```
-
-
-#### Step 3: Start Placeline Activity
-
-Placeline Activity can be the `Launcher activity` or it can start from some other activity as normal activity.
-
-**Launcher Activity**
-
-Add the following xml snippet in your `AndroidManifest.xml` file to make `PlacelineActivity` as a launcher activity.
-
-
-```xml
-<activity
-    android:name=".PlacelineActivity"
-    android:theme="@style/PlacelineActivityTheme">
-    <intent-filter>
-        <action android:name="android.intent.action.MAIN" />
-        <category android:name="android.intent.category.LAUNCHER" />
-    </intent-filter>
-</activity>
-```
-
-**Normal Activity**
-
-Add the following snippet in your activity from which you want to start `PlacelineActivity`.
-
-
-```java
-public void startPlaceline(View view) {
-    startActivity(new Intent(this, PlacelineActivity.class));
-}
-```
-
-
-We hope that you got a good taste of Placeline. If you have any problems or suggestions for the tutorial, do not hesitate to buzz 🐝 us [here](#support).
-
-## Build Live Location Sharing in your app 
-
-Use the following tutorial to build  [Live Location Sharing](#live-location-sharing) in your app. This is divided into three section.
+# Build Live Location Sharing in your app
+This is divided into three section.
 1. In the first section, we will do a basic setup of Hypertrack SDK. 
 2. In the second section, we will select a destination and start a Live Location trip to that place. 
 3. In the last section, we will get your friend to join the trip started by you. 
 
-Let's get started 😊 . Strap yourself in and get ready for an exciting ride 🚀 .
+Let's get started 😊. Strap yourself in and get ready for an exciting ride 🚀.
 
 - [Basic setup](#basic-setup)
   - [Get API keys](#step-1-get-api-keys)
@@ -509,14 +330,14 @@ HyperTrack.createAndAssignAction(actionParams, new HyperTrackCallback() {
 
 We hope you’ve enjoyed yourself on your epic quest to build a Live Location feature. If you have any problems or suggestions for the tutorial, please do not hestitate to buzz 🐝 us [here](#support).
 
-## Releasing to PlayStore
-To release the app on the Play Store, you will have to change the app's package name.
+# Releasing to PlayStore
+Following these steps to release the app on the Play Store.
 
 1. Change the package name in the [AndroidManifest.xml](https://github.com/hypertrack/hypertrack-live-android/blob/master/app/src/main/AndroidManifest.xml#L4) file.
 
-2. Refactor the name of your package with right click → Refactor → Rename in the tree view, then Android Studio will display a window, select "Rename package" option.
+2. Refactor the name of your package. Right click → Refactor → Rename in the tree view. Android Studio will display a window. Select "Rename package" option.
 
-3. Change the application id in the [build.gradle](https://github.com/hypertrack/hypertrack-live-android/blob/master/app/build.gradle#L102) file. Once done, clean and rebuild the project.
+3. Change the application id in [build.gradle](https://github.com/hypertrack/hypertrack-live-android/blob/master/app/build.gradle#L102) file. Once done, clean and rebuild the project.
    - Add `release key store file` in app level folder.
    - Create a `keystore.properties` file in root or project level folder with key-values pair.
     ```properties
@@ -526,23 +347,18 @@ To release the app on the Play Store, you will have to change the app's package 
         keyPassword=<Key Password>
    ```
 
-## Usage
-### To build live location sharing within your own app
+# Documentation
+For detailed documentation of the APIs, customizations and what all you can build using HyperTrack, please visit the official [docs](https://www.hypertrack.com/docs).
 
-Follow [this step-by-step tutorial](https://www.hypertrack.com/tutorials/live-location-sharing-android-messaging-app) that will walk you through how you can embed this code in your app.
-
-## Documentation
-For detailed documentation of the APIs, customizations and what all you can build using HyperTrack, please visit the official [docs](https://docs.hypertrack.com/).
-
-## Contribute
+# Contribute
 Feel free to clone, use, and contribute back via [pull requests](https://help.github.com/articles/about-pull-requests/). We'd love to see your pull requests - send them in! Please use the [issues tracker](https://github.com/hypertrack/hypertrack-live-android/issues) to raise bug reports and feature requests.
 
 We are excited to see what live location feature you build in your app using this project. Do ping us at help@hypertrack.io once you build one, and we would love to feature your app on our blog!
 
-## Support
+# Support
 Join our [Slack community](http://slack.hypertrack.com) for instant responses, or interact with our growing [community](https://community.hypertrack.com). You can also email us at help@hypertrack.com.
 
-## Dependencies
+# Dependencies
 * [Google v7 appcompat library](https://developer.android.com/topic/libraries/support-library/packages.html#v7-appcompat)
 * [Google Design Support Library](https://developer.android.com/topic/libraries/support-library/packages.html#design)
 * [Google libphonenumber library](https://github.com/googlei18n/libphonenumber/)
