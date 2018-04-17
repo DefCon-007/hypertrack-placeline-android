@@ -61,10 +61,124 @@ Let's get started ðŸ˜Š. Strap yourself in and get ready for an exciting ride ðŸš
 #### Step 1. Get API keys
 Get your HyperTrack API keys [here](https://www.hypertrack.com/signup?utm_source=github&utm_campaign=ht_live_android).
 
-#### Step 2. Plugin HyperTrack SDK in your app
-Embed the SDK by following steps 1 to 3 of this [quickstart](https://www.hypertrack.com/docs/quickstart/android). 
+#### Step 2. Install SDK
+1. Import our SDK into your app
+```java
+repositories {
+    maven { url 'http://hypertrack-android-sdk.s3-website-us-west-2.amazonaws.com/' }
+}
 
-#### Step 3. Create HyperTrack user
+dependencies {
+    implementation('com.hypertrack:android:0.7.7@aar') {
+        transitive = true;
+    }
+}
+```
+
+2. Initialize the SDK with your [publishable keys](https://dashboard.hypertrack.com/settings)
+```java
+public class MyApplication extends Application {
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        HyperTrack.initialize(this, YOUR_PUBLISHABLE_KEY_HERE);
+    }
+}
+```
+
+#### Step 3. Enable communication
+1. Enable bidirectional communication between server and SDK using FCM notifications
+```java
+public class MyFirebaseMessagingService extends HyperTrackFirebaseMessagingService {
+    @Override
+    public void onMessageReceived(RemoteMessage remoteMessage) {
+        super.onMessageReceived(remoteMessage);
+
+        if (remoteMessage.getData() != null) {
+            String sdkNotification = remoteMessage.getData().get(Constants.HT_SDK_NOTIFICATION_KEY);
+            if (sdkNotification != null && sdkNotification.equalsIgnoreCase("true")) {
+                /**
+                 * HyperTrack notifications are received here
+                 * Dont handle these notifications. This might end up in a crash
+                 */
+                return;
+            }
+        }
+        // Handle your notifications here.
+    }
+}
+```
+
+```java
+ <service
+    android:name=".MyFirebaseMessagingService"
+    android:exported="false">
+    <intent-filter>
+        <action android:name="com.google.firebase.MESSAGING_EVENT" />
+    </intent-filter>
+</service>
+```
+2. Head over to [FCM Console](https://console.firebase.google.com/project/), select your project, and then visit Settings > Cloud Messaging to get your FCM server key. Copy the key and it to your [HyperTrack dashboard settings](https://dashboard.hypertrack.com/settings).
+
+#### Step 4. Set permissions
+Ask user permission to access location
+```java
+private void checkForLocationSettings() {
+     // Check for Location permission
+    if (!HyperTrack.checkLocationPermission(this)) {
+        HyperTrack.requestPermissions(this);
+        return;
+    }
+    // Check for Location settings
+    if (!HyperTrack.checkLocationServices(this)) {
+        HyperTrack.requestLocationServices(this);
+    }
+    // Location Permissions and Settings have been enabled
+    // Proceed with your app logic here i.e User Login in this case
+    attemptUserLogin();
+}
+
+@Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions,
+                grantResults);
+
+        if (requestCode == HyperTrack.REQUEST_CODE_LOCATION_PERMISSION) {
+            if (grantResults.length > 0 && grantResults[0]
+                    == PackageManager.PERMISSION_GRANTED) {
+                // Check if Location Settings are enabled to proceed
+                checkForLocationSettings();
+
+            } else {
+                // Handle Location Permission denied error
+                Toast.makeText(this, "Location Permission denied.",
+                        Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+ 
+ @Override
+    protected void onActivityResult(int requestCode, int resultCode,
+                                    Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == HyperTrack.REQUEST_CODE_LOCATION_SERVICES) {
+            if (resultCode == Activity.RESULT_OK) {
+                // Check if Location Settings are enabled to proceed
+                checkForLocationSettings();
+
+            } else {
+                // Handle Enable Location Services request denied error
+                Toast.makeText(this, R.string.enable_location_settings,
+                        Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+```
+
+#### Step 5. Create HyperTrack user
 Create a HyperTrack user to identify the mobile device. To create use, go to [ProfilePresenter.java](https://github.com/hypertrack/hypertrack-live-android/blob/master/app/src/main/java/io/hypertrack/sendeta/presenter/ProfilePresenter.java). When the user taps login, get the name of the user and use the following function to create a user.
 
 ```java
@@ -78,7 +192,6 @@ HyperTrack.getOrCreateUser(userParams, new HyperTrackCallback() {
     @Override
     public void onSuccess(@NonNull SuccessResponse successResponse) {
         // Handle success on getOrCreate user
-        HyperTrack.startTracking();
         Toast.makeText(this, "Yay! User is created successfully.", Toast.LENGTH_SHORT).show();
     }
 
@@ -90,11 +203,9 @@ HyperTrack.getOrCreateUser(userParams, new HyperTrackCallback() {
 });
 ```
 
-#### Step 4. Crashlytics Setup (Optional)
+#### Step 6. Crashlytics Setup (Optional)
 You can **optionally** enable the crashlytics crash reporting tool. 
-
 1. Get your Crashlytics key from the **Add Your API Key** section [here](https://fabric.io/kits/android/crashlytics/install).
-
 2. Paste the key to [fabric.properties](https://github.com/hypertrack/hypertrack-live-android/blob/master/app/fabric.properties). Create a new fabric.properties file, if it doesn't exist already.
 
 ### Start a Live Location trip
