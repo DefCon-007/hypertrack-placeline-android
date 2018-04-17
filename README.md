@@ -9,22 +9,16 @@ Use this open source repo of the [Hypertrack Live](https://play.google.com/store
 
 In case you are using iOS, refer to our open source iOS [repository](https://github.com/hypertrack/hypertrack-live-ios).
 
-- [Activity Tracking](#activity-tracking)
-- [Live Location Sharing](#live-location-sharing)
-- [Usage](#usage)
-- [Build Activity Tracking in your app](#build-activity-tracking-in-your-app)
-- [Build Live Location Sharing in your app](#build-live-location-sharing-in-your-app)
+- [Clone the repo](#clone-the-repo)
+- [Build within your app](#build-within-your-app)
+- [Releasing to playstore](#releasing-to-playstore)
 - [Documentation](#documentation)
 - [Contribute](#contribute)
 - [Support](#support)
+- [Dependencies](#dependencies)
 
-<p align="center">
-<kbd>
-<img src="asset/live_location.gif" alt="Live Location Sharing" width="380" height="633">
-</kbd>
-</p>
 
-# Clone the repo
+## Clone the repo
 
 1. Clone this repository
 ```bash
@@ -39,7 +33,7 @@ HyperTrack.initialize(this.getApplicationContext(), BuildConfig.HYPERTRACK_PK);
 3. Get the [Google Maps API key](https://developers.google.com/maps/documentation/android-api/signup) and add it to [api-keys.xml](https://github.com/hypertrack/hypertrack-live-android/blob/master/app/src/main/res/values/api-keys.xml).
 
 
-# Build Live Location Sharing in your app
+## Build within your app
 This is divided into three section.
 1. In the first section, we will do a basic setup of Hypertrack SDK. 
 2. In the second section, we will select a destination and start a Live Location trip to that place. 
@@ -330,7 +324,7 @@ HyperTrack.createAndAssignAction(actionParams, new HyperTrackCallback() {
 
 We hope you’ve enjoyed yourself on your epic quest to build a Live Location feature. If you have any problems or suggestions for the tutorial, please do not hestitate to buzz 🐝 us [here](#support).
 
-# Releasing to PlayStore
+# Releasing to Playstore
 Following these steps to release the app on the Play Store.
 
 1. Change the package name in the [AndroidManifest.xml](https://github.com/hypertrack/hypertrack-live-android/blob/master/app/src/main/AndroidManifest.xml#L4) file.
@@ -347,18 +341,18 @@ Following these steps to release the app on the Play Store.
         keyPassword=<Key Password>
    ```
 
-# Documentation
+## Documentation
 For detailed documentation of the APIs, customizations and what all you can build using HyperTrack, please visit the official [docs](https://www.hypertrack.com/docs).
 
-# Contribute
+## Contribute
 Feel free to clone, use, and contribute back via [pull requests](https://help.github.com/articles/about-pull-requests/). We'd love to see your pull requests - send them in! Please use the [issues tracker](https://github.com/hypertrack/hypertrack-live-android/issues) to raise bug reports and feature requests.
 
 We are excited to see what live location feature you build in your app using this project. Do ping us at help@hypertrack.io once you build one, and we would love to feature your app on our blog!
 
-# Support
+## Support
 Join our [Slack community](http://slack.hypertrack.com) for instant responses, or interact with our growing [community](https://community.hypertrack.com). You can also email us at help@hypertrack.com.
 
-# Dependencies
+## Dependencies
 * [Google v7 appcompat library](https://developer.android.com/topic/libraries/support-library/packages.html#v7-appcompat)
 * [Google Design Support Library](https://developer.android.com/topic/libraries/support-library/packages.html#design)
 * [Google libphonenumber library](https://github.com/googlei18n/libphonenumber/)
