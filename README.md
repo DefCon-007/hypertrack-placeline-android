@@ -1,4 +1,4 @@
-# HyperTrack Placeline
+# HyperTrack Live
 [![Build Status](https://travis-ci.org/hypertrack/hypertrack-live-android.svg?branch=master)](https://travis-ci.org/hypertrack/hypertrack-live-android) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/4fad0c93fd3749d690571a7a728ce047)](https://www.codacy.com/app/piyushguptaece/hypertrack-live-android?utm_source=github.com&utm_medium=referral&utm_content=hypertrack/hypertrack-live-android&utm_campaign=badger) [![Slack Status](http://slack.hypertrack.com/badge.svg)](http://slack.hypertrack.com) [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-HyperTrack%20Live-brightgreen.svg?style=flat)](https://android-arsenal.com/details/3/5754) [![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://opensource.org/licenses/MIT) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 Billions of trips happen on the planet every day. These trips lead to people meeting each other at home, work or some place else. Friends, family and colleagues use their phones to check where the other has reached, often coordinating when and where to meet. Whether you are a messaging app or a marketplace with messaging capability, your users are likely messaging each other about this. It’s time to solve their problem better. 
@@ -59,91 +59,49 @@ Let's get started 😊. Strap yourself in and get ready for an exciting ride �
   
 ### Basic Setup
 #### Step 1. Get API keys
-Get your HyperTrack API keys [here](https://dashboard.hypertrack.com/signup).
+Get your HyperTrack API keys [here](https://www.hypertrack.com/signup?utm_source=github&utm_campaign=ht_live_android).
 
-#### Step 2. Use this project
-We have created this project so that building Live Location Sharing becomes very easy and quick. It will prevent you from the hassle of creating a new project and the workflow to enable Live Location Sharing. If you want to directly build the flow in your own app or wanted to create a new project, you can ignore this step.
+#### Step 2. Plugin HyperTrack SDK in your app
+Embed the SDK by following steps 1 to 3 of this [quickstart](https://www.hypertrack.com/docs/quickstart/android). 
 
-1. Clone this repository
-```bash
-# Clone this repository
-$ git clone https://github.com/hypertrack/hypertrack-live-android.git
-```
-
-2. Get your HyperTrack API keys [here](https://dashboard.hypertrack.com/signup), and add the publishable key to [key.properties](https://github.com/hypertrack/hypertrack-live-android/blob/master/key.properties) file.
-```java
-HyperTrack.initialize(this.getApplicationContext(), BuildConfig.HYPERTRACK_PK);
-```
-
-3. Get the [Google Maps API key](https://developers.google.com/maps/documentation/android-api/signup) and add it to [api-keys.xml](https://github.com/hypertrack/hypertrack-live-android/blob/master/app/src/main/res/values/api-keys.xml).
-
-#### Step 3. Setup HyperTrack SDK
-If you are NOT using the starter project, set up the HyperTrack SDK by following these [instructions](https://dashboard.hypertrack.com/setup). Else, initialize the SDK by putting the following code in [MyApplication.java](https://github.com/hypertrack/hypertrack-live-android/blob/master/app/src/main/java/io/hypertrack/sendeta/MyApplication.java) file.
-
-```java
-public class MyApplication extends Application {
-
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        
-        ...
-        
-        // Initialize HyperTrack SDK
-        HyperTrack.initialize(this.getApplicationContext(), BuildConfig.HYPERTRACK_PK);
-    }
-
-```
-
-#### Step 4. Create HyperTrack user
-The next thing that you need to do is to create a HyperTrack user. It helps us tag the location/activity data with the user and share their Live Location status with friends. More details about the function [here](https://dashboard.hypertrack.com/setup). 
-
-When the user is created, we need to start tracking his location and activity. Call the following method to do so ```HyperTrack.startTracking()```
-
-For starter project, go to [ProfilePresenter.java](https://github.com/hypertrack/hypertrack-live-android/blob/master/app/src/main/java/io/hypertrack/sendeta/presenter/ProfilePresenter.java). When the user taps login, get the name of the user and use the following function to create a user.
+#### Step 3. Create HyperTrack user
+Create a HyperTrack user to identify the mobile device. To create use, go to [ProfilePresenter.java](https://github.com/hypertrack/hypertrack-live-android/blob/master/app/src/main/java/io/hypertrack/sendeta/presenter/ProfilePresenter.java). When the user taps login, get the name of the user and use the following function to create a user.
 
 ```java
 UserParams userParams = new UserParams()
-                .setName(name)
-                .setPhone(phoneNumber)
-                .setPhoto(encodedImage)
-                .setLookupId(phoneNumber);
+    .setName(name)
+    .setPhone(phoneNumber)
+    .setPhoto(encodedImage)
+    .setLookupId(phoneNumber);
                 
 HyperTrack.getOrCreateUser(userParams, new HyperTrackCallback() {
-                @Override
-                public void onSuccess(@NonNull SuccessResponse successResponse) {
-                    // Handle success on getOrCreate user
-                    HyperTrack.startTracking();
-                    Toast.makeText(this, "Yay Hypertrack User is created successfully.", Toast.LENGTH_SHORT).show();
-                }
+    @Override
+    public void onSuccess(@NonNull SuccessResponse successResponse) {
+        // Handle success on getOrCreate user
+        HyperTrack.startTracking();
+        Toast.makeText(this, "Yay! User is created successfully.", Toast.LENGTH_SHORT).show();
+    }
 
-                @Override
-                public void onError(@NonNull ErrorResponse errorResponse) {
-                    // Handle error on getOrCreate user
-                    Toast.makeText(this, errorResponse.getErrorMessage(), Toast.LENGTH_SHORT).show();
-                }
-            });
+    @Override
+    public void onError(@NonNull ErrorResponse errorResponse) {
+        // Handle error on getOrCreate user
+        Toast.makeText(this, errorResponse.getErrorMessage(), Toast.LENGTH_SHORT).show();
+    }
+});
 ```
 
-#### Step 5. FCM Integration
-The HyperTrack SDK requires FCM for a battery efficient real-time tracking experience. 
+#### Step 4. Crashlytics Setup (Optional)
+You can **optionally** enable the crashlytics crash reporting tool. 
 
-1. Refer to the [FCM Integration guide](https://docs.hypertrack.com/sdks/android/gcm-integration.html#locate-your-gcmfcm-key). 
-
-2. After setting up your account on the [Firebase console](https://console.firebase.google.com), you will need to add the [google-services.json](https://support.google.com/firebase/answer/7015592) file to your [app folder](https://github.com/hypertrack/hypertrack-live-android/tree/master/app).
-
-#### Step 6. Crashlytics Setup (Optional)
-You can also enable the crashlytics crash reporting tool. This is optional and if you choose to skip this won't affect your integration.
-
-1. Get your Crashlytics key, see the section Add Your API Key from [here](https://fabric.io/kits/android/crashlytics/install) and you can copy your API Key.
+1. Get your Crashlytics key from the **Add Your API Key** section [here](https://fabric.io/kits/android/crashlytics/install).
 
 2. Paste the key to [fabric.properties](https://github.com/hypertrack/hypertrack-live-android/blob/master/app/fabric.properties). Create a new fabric.properties file, if it doesn't exist already.
 
 ### Start a Live Location trip
-Are you ready to rock and roll?
+You are now all set with the basic setup. Are you ready to rock and roll?
 
 #### Step 1. Show Live Location view
-Now to start a Live Location trip, the first thing that you need to do is to add a destination. For this, we will need a location picker. The good news is that HyperTrack Location View has a location picker within it. Once the user selects a location with the help of our inbuilt location picker, than the sdk gives a callback to the app with the selected location so that the app can start a trip.
+Now to start a Live Location trip, the first thing that you need to do is to add a destination. For this, we will need a location picker. HyperTrack Location View has a location picker within it. Once the user selects a location with the help of our inbuilt location picker, the SDK gives a callback to the app with the selected location so that the app can start a trip.
 
 For  starter project, Check ```Home.java``` embedding the HyperTrackMapFragment view in  ```content_home.xml``` view. Initialize the HyperTrackMapFragment inside ```oncreate``` method of ```Home``` activity and set your implementation of [HyperTrackMapAdapter](https://github.com/hypertrack/hypertrack-live-android/blob/master/app/src/main/java/io/hypertrack/sendeta/view/HomeMapAdapter.java), [MapFragmentCallback](https://github.com/hypertrack/hypertrack-live-android/blob/6c801e65a628769cd160ef7b0b4f77fd68df7818/app/src/main/java/io/hypertrack/sendeta/view/Home.java#L137-L213) for HyperTrackMapFragment.
 
