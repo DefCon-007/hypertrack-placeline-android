@@ -15,6 +15,9 @@ Let's get started ðŸ˜Š. Strap yourself in and get ready for an exciting ride ðŸš
   - [Crashlytics Setup (optional)](#step-6-crashlytics-setup-optional)
 - [Track users through the day](#track-users-through-the-day)
 - [Build Placeline view](#build-placeline-view)
+  - [Understand Placeline format](#understand-placeline-format)
+  - [Get Placeline data in your app](#get-placeline-data-in-your-app)
+  - [Get Placeline view in your Android app](#get-placeline-view-in-your-android-app)
   
 ### Basic Setup
 #### Step 1. Get API keys
