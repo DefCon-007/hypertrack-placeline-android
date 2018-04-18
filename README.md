@@ -10,13 +10,12 @@ Use this open source repo of the [Hypertrack Live](https://play.google.com/store
 In case you are using iOS, refer to our open source iOS [repository](https://github.com/hypertrack/hypertrack-live-ios).
 
 - [Clone the repo](#clone-the-repo)
-- [Build within your app](#build-within-your-app)
-- [Releasing to playstore](#releasing-to-playstore)
+- [Build live location sharing within your app](#build-within-your-app)
+- [Release to playstore](#release-to-playstore)
+- [Dependencies](#dependencies)
 - [Documentation](#documentation)
 - [Contribute](#contribute)
 - [Support](#support)
-- [Dependencies](#dependencies)
-
 
 ## Clone the repo
 
@@ -393,7 +392,7 @@ HyperTrack.createAction(actionParams, new HyperTrackCallback() {
 
 We hope you’ve enjoyed yourself on your epic quest to build a Live Location feature. If you have any problems or suggestions for the tutorial, please do not hestitate to buzz 🐝 us [here](#support).
 
-# Releasing to Playstore
+## Release to Playstore
 Following these steps to release the app on the Play Store.
 
 1. Change the package name in the [AndroidManifest.xml](https://github.com/hypertrack/hypertrack-live-android/blob/master/app/src/main/AndroidManifest.xml#L4) file.
@@ -410,17 +409,6 @@ Following these steps to release the app on the Play Store.
         keyPassword=<Key Password>
    ```
 
-## Documentation
-For detailed documentation of the APIs, customizations and what all you can build using HyperTrack, please visit the official [docs](https://www.hypertrack.com/docs).
-
-## Contribute
-Feel free to clone, use, and contribute back via [pull requests](https://help.github.com/articles/about-pull-requests/). We'd love to see your pull requests - send them in! Please use the [issues tracker](https://github.com/hypertrack/hypertrack-live-android/issues) to raise bug reports and feature requests.
-
-We are excited to see what live location feature you build in your app using this project. Do ping us at help@hypertrack.io once you build one, and we would love to feature your app on our blog!
-
-## Support
-Join our [Slack community](http://slack.hypertrack.com) for instant responses, or interact with our growing [community](https://community.hypertrack.com). You can also email us at help@hypertrack.com.
-
 ## Dependencies
 * [Google v7 appcompat library](https://developer.android.com/topic/libraries/support-library/packages.html#v7-appcompat)
 * [Google Design Support Library](https://developer.android.com/topic/libraries/support-library/packages.html#design)
@@ -435,3 +423,14 @@ Join our [Slack community](http://slack.hypertrack.com) for instant responses, o
 * [Leak Canary](https://github.com/square/leakcanary)
 * [Branch](https://branch.io/)
 * [Crashlytics](https://fabric.io/kits/android/crashlytics)
+
+## Documentation
+For detailed documentation of the HyperTrack APIs and SDKs, customizations and what all you can build using HyperTrack, please visit the official [docs](https://www.hypertrack.com/docs).
+
+## Contribute
+Feel free to clone, use, and contribute back via [pull requests](https://help.github.com/articles/about-pull-requests/). We'd love to see your pull requests - send them in! Please use the [issues tracker](https://github.com/hypertrack/hypertrack-live-android/issues) to raise bug reports and feature requests.
+
+We are excited to see what live location feature you build in your app using this project. Do ping us at help@hypertrack.io once you build one, and we would love to feature your app on our blog!
+
+## Support
+Join our [Slack community](http://slack.hypertrack.com) for instant responses. You can also email us at help@hypertrack.com.
