@@ -1,4 +1,4 @@
-#Build Placeline within your own app
+# Build Placeline within your own app
 
 Following this tutorial to track your users through the day, and show a placeline view within the app.
 
