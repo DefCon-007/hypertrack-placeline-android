@@ -1,6 +1,6 @@
 
-# Build within your app
-This is divided into three section.
+# Build live location sharing within your app
+Following this tutorial to build live location share within your app. The tutorial is divided into three sections.
 1. In the first section, we will do a basic setup of Hypertrack SDK. 
 2. In the second section, we will select a destination and start a Live Location trip to that place. 
 3. In the last section, we will get your friend to join the trip started by you. 
@@ -357,4 +357,4 @@ HyperTrack.createAction(actionParams, new HyperTrackCallback() {
 });
 ```
 
-We hope you’ve enjoyed yourself on your epic quest to build a Live Location feature. If you have any problems or suggestions for the tutorial, please do not hestitate to buzz 🐝 us [here](#support).
+We hope you’ve enjoyed yourself on your epic quest to build a Live Location Sharing feature. If you have any problems or suggestions for the tutorial, do not hesitate to buzz 🐝 us on [Slack](http://slack.hypertrack.com) or email us at help@hypertrack.com.
