@@ -5,7 +5,7 @@ Billions of trips happen on the planet every day. These trips lead to people mee
 
 If your users can track their Uber coming to them turn-by-turn with an accurate ETA, why not track friends, colleagues, buyers and sellers similarly! Facebook Messenger and Google Maps recently added functionality for live location sharing and Whatsapp is likely to follow soon. Now it’s your turn. 
 
-Use this open source repo of the [Hypertrack Live](https://play.google.com/store/apps/details?id=io.hypertrack.sendeta&hl=en) app to build live location sharing experience within your app within a few hours. HyperTrack Live app helps you share your Live Location with friends and family through your favorite messaging app when you are on the way to meet up. HyperTrack Live uses [HyperTrack](https://www.hypertrack.com/) APIs and SDKs. 
+Use this **open source repo** of the [Hypertrack Live](https://play.google.com/store/apps/details?id=io.hypertrack.sendeta&hl=en) app to build live location sharing experience within your app within a few hours. HyperTrack Live app helps you share your Live Location with friends and family through your favorite messaging app when you are on the way to meet up. HyperTrack Live uses [HyperTrack](https://www.hypertrack.com/) APIs and SDKs. 
 
 In case you are using iOS, refer to our open source iOS [repository](https://github.com/hypertrack/hypertrack-live-ios).
 
