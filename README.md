@@ -48,7 +48,7 @@ Let's get started ğŸ˜Š. Strap yourself in and get ready for an exciting ride ğŸš
   - [Set permissions](#Step-4-Set-permissions)
   - [Create HyperTrack user](#Step-5-Create-HyperTrack-user)
   - [Crashlytics Setup (optional)](#step-6-crashlytics-setup-optional)
-- [Start a Live Location trip](#start-a-live-location-trip)
+- [Start a trip](#start-a-trip)
   - [Add destination](#step-1-add-destination)
   - [Create and track action](#step-2-create-and-track-action)
   - [Share your trip](#step-3-share-your-trip)
