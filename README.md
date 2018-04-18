@@ -32,7 +32,7 @@ HyperTrack.initialize(this.getApplicationContext(), BuildConfig.HYPERTRACK_PK);
 3. Get the [Google Maps API key](https://developers.google.com/maps/documentation/android-api/signup) and add it to [api-keys.xml](https://github.com/hypertrack/hypertrack-live-android/blob/master/app/src/main/res/values/api-keys.xml).
 
 ## Build within your app
-
+[Follow this step-by-step tutorial](https://github.com/hypertrack/hypertrack-placeline-android/blob/master/build-live-location-sharing-within-your-app.md) to build live location sharing within your own app.
 
 ## Release to Playstore
 Following these steps to release the app on the Play Store.
