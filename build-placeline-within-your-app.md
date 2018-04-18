@@ -19,11 +19,11 @@ Let's get started ðŸ˜Š. Strap yourself in and get ready for an exciting ride ðŸš
   - [Get Placeline data in your app](#get-placeline-data-in-your-app)
   - [Get Placeline view in your Android app](#get-placeline-view-in-your-android-app)
   
-### Basic Setup
-#### Step 1. Get API keys
+## Basic Setup
+### Step 1. Get API keys
 Get your HyperTrack API keys [here](https://www.hypertrack.com/signup?utm_source=github&utm_campaign=ht_placeline_android).
 
-#### Step 2. Install SDK
+### Step 2. Install SDK
 1. Import our SDK into your app
 ```java
 repositories {
@@ -48,7 +48,7 @@ public class MyApplication extends Application {
 }
 ```
 
-#### Step 3. Enable communication
+### Step 3. Enable communication
 1. Enable bidirectional communication between server and SDK using FCM notifications
 ```java
 public class MyFirebaseMessagingService extends HyperTrackFirebaseMessagingService {
@@ -82,7 +82,7 @@ public class MyFirebaseMessagingService extends HyperTrackFirebaseMessagingServi
 ```
 2. Head over to [FCM Console](https://console.firebase.google.com/project/), select your project, and then visit Settings > Cloud Messaging to get your FCM server key. Copy the key and it to your [HyperTrack dashboard settings](https://dashboard.hypertrack.com/settings).
 
-#### Step 4. Set permissions
+### Step 4. Set permissions
 Ask user permission to access location
 ```java
 private void checkForLocationSettings() {
@@ -140,7 +140,7 @@ private void checkForLocationSettings() {
 
 ```
 
-#### Step 5. Create HyperTrack user
+### Step 5. Create HyperTrack user
 Create a HyperTrack user to identify the mobile device. You can do so when your user logs-in into your app.
 
 ```java
@@ -165,19 +165,19 @@ HyperTrack.getOrCreateUser(userParams, new HyperTrackCallback() {
 });
 ```
 
-#### Step 6. Crashlytics Setup (Optional)
+### Step 6. Crashlytics Setup (Optional)
 You can **optionally** enable the crashlytics crash reporting tool. 
 1. Get your Crashlytics key from the **Add Your API Key** section [here](https://fabric.io/kits/android/crashlytics/install).
 2. Paste the key to [fabric.properties](https://github.com/hypertrack/hypertrack-live-android/blob/master/app/fabric.properties). Create a new fabric.properties file, if it doesn't exist already.
 
-### Track users through the day
+## Track users through the day
 To track your users through the day, set up a rule that auto-creates an action at the start of the day and auto-completes it at the end of the day. Visit [HyperTrack Dashboard settings](https://dashboard.hypertrack.com/settings) to set up the rule. 
 
-### Build Placeline view
-#### Understand Placeline format
+## Build Placeline view
+### Understand Placeline format
 Placeline object is a list of activity segments, where each segment is defined by a start and an end timestamp, and has relevant location, activity and health data as properties. The Placeline object includes segments like **stop**, **walk**, and **drive**. See an example JSON representation [here](https://docs.hypertrack.com/api/entities/action.html#placeline).
 
-#### Get Placeline data in your app
+### Get Placeline data in your app
 Once the `track-through-the-day` action has been created for your users (via a rule), implement the following function [placelineManager.getPlacelineData()](https://github.com/hypertrack/hypertrack-live-android/blob/master/app/src/main/java/io/hypertrack/sendeta/store/PlacelineManager.java#L43) and get [PlacelineData](https://github.com/hypertrack/hypertrack-live-android/blob/master/app/src/main/java/io/hypertrack/sendeta/model/PlacelineData.java). You are all set to use the rich activity data in your app.
 
 ```java
@@ -199,9 +199,9 @@ HyperTrack.getPlaceline(date, new HyperTrackCallback() {
 });
 ```
 
-#### Get Placeline view in your Android app
+### Get Placeline view in your Android app
 
-##### Step 1: Setup Activity
+#### Step 1: Setup Activity
 
 * **Firstly**, add the following xml snippet in your view layout to enable `PlacelineFragment`.
 
@@ -236,7 +236,7 @@ protected void onCreate(Bundle savedInstanceState) {
 }
 ```
 
-##### Step 2: Disable ActionBar
+#### Step 2: Disable ActionBar
 
 In case your AppTheme adds an ActionBar by default, disable the default Action Bar for the activity containing PlacelineFragment by adding the following under your Activity's theme style-tag in styles.xml file. Refer to Android documentation on [Setting up the AppBar](https://developer.android.com/training/appbar/setting-up.html).
 
@@ -261,7 +261,7 @@ Add the `android:theme` attribute to the `<activity>` tag in `AndroidManifest.xm
 ```
 
 
-##### Step 3: Start Placeline Activity
+#### Step 3: Start Placeline Activity
 
 Placeline Activity can be the `Launcher activity` or it can start from some other activity as normal activity.
 
