@@ -5,7 +5,7 @@ Billions of trips happen on the planet every day. These trips lead to people mee
 
 <p align="center">
 <kbd>
-<img src="http://res.cloudinary.com/hypertrack/image/upload/v1524554407/HyperTrack_Live_Android.gif" alt="Live Location Sharing" width="380">
+<img src="http://res.cloudinary.com/hypertrack/image/upload/v1524554407/HyperTrack_Live_Android.gif" alt="Live Location Sharing" width="300">
 </kbd>
 </p>
 
