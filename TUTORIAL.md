@@ -1,5 +1,13 @@
 # Build Placeline within your own app
-Following this tutorial to track your users through the day, and show a placeline view within the app. The tutorial is divided into three sections.
+Following this tutorial to track your users through the day, and show a placeline view within the app. 
+
+<p align="center">
+<kbd>
+<img src="http://res.cloudinary.com/hypertrack/image/upload/v1524554794/HT_Placeline.gif" alt="Live Location Sharing" width="300">
+</kbd>
+</p>
+
+The tutorial is divided into three sections.
 1. In the first section, we will do a basic setup of Hypertrack SDK. 
 2. In the second section, we will set up rules to track users throught he day. 
 3. In the last section, we will build a Placeline view within your app.
