@@ -3,11 +3,8 @@
 
 Placeline is useful in tracking your daily activity with near-zero battery impact. We automagically use the combination of device sensors - GPS, WiFi, network, accelerometer, pedometer, gyroscope, compass - to deliver accuracy. Placeline is powered by the HyperTrack SDK which collects location and activity data for your users. It includes segments like stop 🛑, walk 🚶‍♀️,run 🏃‍♀️,drive 🏎️ and cycle 🚴. 
 
-<div align="center">
-    <iframe width="620" height="315"
-        src="https://www.youtube.com/embed/8wXIEJvmHLg">
-    </iframe>
-</div>
+
+[![IMAGE ALT TEXT](http://img.youtube.com/vi/8wXIEJvmHLg/0.jpg)](http://www.youtube.com/watch?v=8wXIEJvmHLg "Placeline")
 
 Use this open source repo of the [Hypertrack Placeline](https://play.google.com/store/apps/details?id=io.hypertrack.sendeta&hl=en) app to build Placeline within your app within a few hours. The repo uses [HyperTrack](https://www.hypertrack.com/) APIs and SDKs. 
 
