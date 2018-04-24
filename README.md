@@ -40,7 +40,7 @@ HyperTrack.initialize(this.getApplicationContext(), BuildConfig.HYPERTRACK_PK);
 
 
 ## Build within your app
-[Follow this step-by-step tutorial](https://github.com/hypertrack/hypertrack-placeline-android/blob/master/build-placeline-within-your-app.md) to track your users through the day, and show a placeline view within your app.
+[Follow this step-by-step tutorial](https://github.com/hypertrack/hypertrack-placeline-android/blob/master/TUTORIAL.md) to track your users through the day, and show a placeline view within your app.
 
 ## Release to Playstore
 Following these steps to release the app on the Play Store.
