@@ -5,7 +5,7 @@ Placeline is useful in tracking your daily activity with near-zero battery impac
 
 <p align="center">
 <kbd>
-<img src="http://res.cloudinary.com/hypertrack/image/upload/v1524554407/HyperTrack_Live_Android.gif" alt="Live Location Sharing" width="300">
+<img src="http://res.cloudinary.com/hypertrack/image/upload/v1524554794/HT_Placeline.gif" alt="Live Location Sharing" width="300">
 </kbd>
 </p>
 
