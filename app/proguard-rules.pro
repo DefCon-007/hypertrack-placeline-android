@@ -24,9 +24,9 @@
 -keep class com.facebook.** { *; }
 -keep class com.squareup.okhttp.** { *; }
 -keep class retrofit2.** { *; }
--keep class io.hypertrack.sendeta.model.** { *; }
--keep class io.hypertrack.sendeta.network.** { *; }
--keep class io.hypertrack.sendeta.store.** { *; }
+-keep class io.hypertrack.placeline.model.** { *; }
+-keep class io.hypertrack.placeline.network.** { *; }
+-keep class io.hypertrack.placeline.store.** { *; }
 -keep class maps.** { *; }
 -keep class com.hypertrack.lib.** { *; }
 

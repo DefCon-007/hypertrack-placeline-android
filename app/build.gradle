@@ -102,11 +102,11 @@ android {
         def runTasks = gradle.startParameter.taskNames
         if ('cUDD' in runTasks || 'crashlyticsUploadDistributionDebug' in runTasks
                 || 'cUDR' in runTasks || 'crashlyticsUploadDistributionRelease' in runTasks) {
-            value = 1;
+            value = 1
         }
 
-        def versionMajor = 3
-        def versionMinor = 4
+        def versionMajor = 1
+        def versionMinor = 0
         def versionPatch = versionProps['VERSION_PATCH'].toInteger() + value
         def versionNumber = versionProps['VERSION_NUMBER'].toInteger() + value
 
@@ -116,18 +116,16 @@ android {
         versionProps.store(versionPropsFile.newWriter(), null)
 
         defaultConfig {
-            applicationId "io.hypertrack.sendeta"
+            applicationId "io.hypertrack.placeline"
             versionCode versionNumber
             versionName "${versionMajor}.${versionMinor}.${versionPatch}"
             minSdkVersion 16
             targetSdkVersion 26
-            resValue "string", "app_name", "HyperTrack Live"
+            resValue "string", "app_name", "Placeline"
             buildConfigField "String", "HYPERTRACK_PK", keyProperties['HYPERTRACK_PUBLISHABLE_KEY']
             buildConfigField "String", "HYPERTRACK_BASE_URL_V1", '"https://api.hypertrack.com/api/v1/"'
             buildConfigField "String", "HYPERTRACK_BASE_URL_V2", '"https://api.hypertrack.com/api/v2/"'
 
-            resValue "string", "deeplink_scheme", "com.hypertracklive"
-            resValue "string", "tracking_url", "trck.at"
             manifestPlaceholders = [applicationLabel: "@string/app_name"]
             multiDexEnabled true
             if (keystorePropertiesFile.exists())
@@ -144,7 +142,7 @@ android {
 
     applicationVariants.all { variant ->
         variant.outputs.each { output ->
-            def newFileName = "HyperTrackLive-${variant.versionName}.apk"
+            def newFileName = "Placeline-${variant.versionName}.apk"
             def apk = output.outputFile
             //System.out.println(apk.parent + ", newfilename: " + newFileName)
             output.outputFileName = new File("../", newFileName)
@@ -172,7 +170,7 @@ android {
             versionNameSuffix '-debug'
             applicationIdSuffix '.debug'
             buildConfigField "String", "HYPERTRACK_PK", keyProperties['HYPERTRACK_DEBUG_PUBLISHABLE_KEY']
-            resValue "string", "app_name", "Debug HyperTrack Live"
+            resValue "string", "app_name", "Debug Placeline"
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             if (!fabricCheck) {
                 ext.enableCrashlytics = false
@@ -187,7 +185,7 @@ android {
             minifyEnabled false
             versionNameSuffix '-tracking'
             applicationIdSuffix '.tracking'
-            resValue "string", "app_name", "New Tracking HyperTrack Live"
+            resValue "string", "app_name", "Placeline"
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             if (!fabricCheck) {
                 ext.enableCrashlytics = false
@@ -200,7 +198,7 @@ android {
                 minifyEnabled false
                 applicationIdSuffix '.staging'
                 versionNameSuffix '-staging'
-                resValue "string", "app_name", "Staging HyperTrack Live"
+                resValue "string", "app_name", "Staging Placeline"
                 manifestPlaceholders = [applicationLabel: "@string/app_name"]
                 buildConfigField "String", "HYPERTRACK_PK", keyProperties['STAGING_HYPERTRACK_PUBLISHABLE_KEY']
                 buildConfigField "String", "HYPERTRACK_BASE_URL_V2", '"https://staging-api.hypertrack.com/api/v1/"'

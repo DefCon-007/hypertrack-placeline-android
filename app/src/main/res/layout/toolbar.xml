@@ -8,7 +8,7 @@
     app:layout_collapseMode="pin"
     app:popupTheme="@style/Toolbar">
 
-    <io.hypertrack.sendeta.util.images.RoundedImageView
+    <io.hypertrack.placeline.util.images.RoundedImageView
         android:id="@+id/toolbar.icon"
         android:layout_width="@dimen/toolbar_user_icon"
         android:layout_height="@dimen/toolbar_user_icon"
