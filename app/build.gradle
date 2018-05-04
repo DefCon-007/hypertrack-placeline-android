@@ -131,7 +131,7 @@ android {
             if (keystorePropertiesFile.exists())
                 signingConfig signingConfigs.release
             if (findProject(':library') != null)
-                buildConfigField "String", "isHyperTrackLive", '"exist"'
+                buildConfigField "String", "isHyperTrackLive", '""'
             else
                 buildConfigField "String", "isHyperTrackLive", '""'
         }
