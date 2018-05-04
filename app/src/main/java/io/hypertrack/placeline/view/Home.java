@@ -104,7 +104,7 @@ public class Home extends AppCompatActivity {
 
         @Override
         public void onSettingButtonClicked() {
-            startActivity(new Intent(Home.this, Profile.class));
+            startActivity(new Intent(Home.this, MyProfile.class));
         }
     };
 
