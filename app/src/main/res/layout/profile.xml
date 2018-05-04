@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingLeft="@dimen/padding_xxhigh"
@@ -39,13 +40,14 @@
         android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
         android:background="@android:color/transparent"
+        android:gravity="center_horizontal"
         android:hint="Your Name"
         android:inputType="textCapWords"
         app:layout_constraintBottom_toTopOf="@+id/tracking_switch"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profile.image_view"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.258" />
 
     <io.hypertrack.placeline.view.DashedLine
         android:id="@+id/dashedLine"
@@ -100,16 +102,18 @@
         app:layout_constraintTop_toBottomOf="@+id/about_hypertrack" />
 
     <TextView
+        android:id="@+id/app_version"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:text="v 3.2.4"
-        app:layout_constraintBottom_toTopOf="@+id/app_version"
+        app:layout_constraintBottom_toTopOf="@+id/textView2"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/app_version"
+        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
