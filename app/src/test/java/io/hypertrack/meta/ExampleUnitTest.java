@@ -1,4 +1,4 @@
-package io.hypertrack.sendeta;
+package io.hypertrack.placeline;
 
 import org.junit.Test;
 

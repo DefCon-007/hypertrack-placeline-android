@@ -1,4 +1,4 @@
-package io.hypertrack.sendeta.util;
+package io.hypertrack.placeline.util;
 
 import android.app.Application;
 import android.util.Log;

@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/padding_xxhigh"
+    android:paddingRight="@dimen/padding_xxhigh">
+
+    <io.hypertrack.placeline.util.images.RoundedImageView
+        android:id="@+id/profile.image_view"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="48dp"
+        android:background="@drawable/circle_image_button"
+        android:onClick="onProfileImageViewClicked"
+        android:padding="0dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/default_profile_pic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/profile.progress_bar"
+        android:layout_width="@dimen/progress_bar_height"
+        android:layout_height="@dimen/progress_bar_height"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/profile.image_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/profile.image_view" />
+
+    <EditText
+        android:id="@+id/profile.name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@android:color/transparent"
+        android:gravity="center_horizontal"
+        android:hint="Your Name"
+        android:inputType="textCapWords"
+        app:layout_constraintBottom_toTopOf="@+id/tracking_switch"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profile.image_view"
+        app:layout_constraintVertical_bias="0.258" />
+
+    <io.hypertrack.placeline.view.DashedLine
+        android:id="@+id/dashedLine"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:layout_marginTop="32dp"
+        app:dashGap="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tracking_switch" />
+
+    <Switch
+        android:id="@+id/tracking_switch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="72dp"
+        android:text="@string/tracking_pause"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.571"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profile.image_view" />
+
+    <TextView
+        android:id="@+id/about_hypertrack"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:drawableEnd="@drawable/ic_chevron_right"
+        android:drawableRight="@drawable/ic_chevron_right"
+        android:onClick="onAboutHyperTrackClicked"
+        android:paddingEnd="@dimen/padding_high"
+        android:paddingRight="@dimen/padding_high"
+        android:text="@string/about_hypertrack"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dashedLine" />
+
+    <TextView
+        android:id="@+id/privacy_policy"
+        android:layout_width="match_parent"
+        android:layout_height="16dp"
+        android:layout_marginTop="12dp"
+        android:drawableEnd="@drawable/ic_chevron_right"
+        android:drawableRight="@drawable/ic_chevron_right"
+        android:onClick="onPrivacyPolicyClicked"
+        android:paddingRight="@dimen/padding_high"
+        android:text="@string/privacy_policy"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/about_hypertrack" />
+
+    <TextView
+        android:id="@+id/app_version"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="@string/made_with_love_in_bengaluru_san_francisco"
+        app:layout_constraintBottom_toTopOf="@+id/hiring"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/hiring"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:onClick="onHiringClicked"
+        android:text="@string/we_are_hiring"
+        android:textColor="@color/colorAccent"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+</android.support.constraint.ConstraintLayout>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="io.hypertrack.sendeta">
+    package="io.hypertrack.placeline">
 
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <!--
@@ -43,62 +43,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
-            <!-- Intent Filter to handle browsable deeplinks -->
-            <intent-filter android:label="@string/filter_title_track">
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-
-                <data android:scheme="@string/deeplink_scheme" />
-            </intent-filter>
-
-
-            <!-- Intent Filter to handle trck.at link  -->
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-
-                <data android:scheme="http" />
-                <data android:scheme="https" />
-
-                <!-- Add trck.at DeepLink URL -->
-                <data
-                    android:host="@string/tracking_url"
-                    android:pathPrefix="/" />
-
-                <data
-                    android:host="trck.at"
-                    android:scheme="https" />
-                <data
-                    android:host="eta.fyi"
-                    android:scheme="http" />
-            </intent-filter>
-
-
-            <!--Intent filter to handle Branch Deep Link-->
-            <intent-filter>
-                <data
-                    android:host="open"
-                    android:scheme="hypertrack.io" />
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-            </intent-filter>
-
-            <intent-filter>
-                <data
-                    android:host="hypertrack"
-                    android:scheme="share.location" />
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-            </intent-filter>
-
         </activity>
 
         <activity
@@ -121,6 +65,8 @@
             android:name=".view.Verify"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateVisible" />
+        <activity android:name=".view.MyProfile"
+            android:screenOrientation="portrait" />
 
         <!-- Register Receivers here -->
 

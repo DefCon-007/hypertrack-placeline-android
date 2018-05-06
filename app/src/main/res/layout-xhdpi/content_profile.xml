@@ -22,7 +22,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="@dimen/margin_huge">
 
-                <io.hypertrack.sendeta.util.images.RoundedImageView
+                <io.hypertrack.placeline.util.images.RoundedImageView
                     android:id="@+id/profile.image_view"
                     android:layout_width="100dp"
                     android:layout_height="100dp"

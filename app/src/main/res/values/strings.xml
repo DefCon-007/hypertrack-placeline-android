@@ -107,4 +107,11 @@
     <string name="share_eta">SHARE ETA</string>
     <string name="tracking_eta_fyi">eta.fyi</string>
     <string name="summary_title">How\'s your day?</string>
+    <string name="about_hypertrack">About HyperTrack</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="made_with_love_in_bengaluru_san_francisco"><![CDATA[Made with love in Bengaluru & San Francisco]]></string>
+    <string name="we_are_hiring">WE ARE HIRING</string>
+
+    <string name="tracking_active">Tracking Active</string>
+    <string name="tracking_pause">Tracking Paused</string>
 </resources>
