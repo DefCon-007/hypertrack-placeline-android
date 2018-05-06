@@ -46,11 +46,11 @@ HyperTrack.initialize(this.getApplicationContext(), BuildConfig.HYPERTRACK_PK);
 ## Release to Playstore
 Following these steps to release the app on the Play Store.
 
-1. Change the package name in the [AndroidManifest.xml](https://github.com/hypertrack/hypertrack-live-android/blob/master/app/src/main/AndroidManifest.xml#L4) file.
+1. Change the package name in the [AndroidManifest.xml](https://github.com/hypertrack/hypertrack-placeline-android/blob/master/app/src/main/AndroidManifest.xml#L4) file.
 
 2. Refactor the name of your package. Right click → Refactor → Rename in the tree view. Android Studio will display a window. Select "Rename package" option.
 
-3. Change the application id in [build.gradle](https://github.com/hypertrack/hypertrack-placeline-android/blob/master/app/build.gradle#111) file. Once done, clean and rebuild the project.
+3. Change the application id in [build.gradle](https://github.com/hypertrack/hypertrack-placeline-android/blob/master/app/build.gradle#L111) file. Once done, clean and rebuild the project.
    - Add `release key store file` in app level folder.
    - Create a `keystore.properties` file in root or project level folder with key-values pair.
     ```properties
@@ -79,7 +79,7 @@ Following these steps to release the app on the Play Store.
 For detailed documentation of the HyperTrack APIs and SDKs, customizations and what all you can build using HyperTrack, please visit the official [docs](https://www.hypertrack.com/docs).
 
 ## Contribute
-Feel free to clone, use, and contribute back via [pull requests](https://help.github.com/articles/about-pull-requests/). We'd love to see your pull requests - send them in! Please use the [issues tracker](https://github.com/hypertrack/hypertrack-live-android/issues) to raise bug reports and feature requests.
+Feel free to clone, use, and contribute back via [pull requests](https://help.github.com/articles/about-pull-requests/). We'd love to see your pull requests - send them in! Please use the [issues tracker](https://github.com/hypertrack/hypertrack-placeline-android/issues) to raise bug reports and feature requests.
 
 We are excited to see what live location feature you build in your app using this project. Do ping us at help@hypertrack.com once you build one, and we would love to feature your app on our blog!
 
