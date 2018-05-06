@@ -142,7 +142,7 @@ android {
     buildTypes {
 
         release {
-            def keyPropertiesFile = rootProject.file("app/src/release/java/io/hypertrack/sendeta/key.properties")
+            def keyPropertiesFile = rootProject.file("app/src/release/java/io/hypertrack/placeline/key.properties")
             if (keyPropertiesFile == null || !keyPropertiesFile.exists()) {
                 throw new GradleException("key.properties file is missing that contains HyperTrack Publishable Key." +
                         "\nRefer Step 2 at https://github.com/hypertrack/hypertrack-live-android#to-use-this-app for more info.");
@@ -162,21 +162,21 @@ android {
         }
 
         debug {
-            def keyPropertiesFile = rootProject.file("app/src/debug/java/io/hypertrack/sendeta/key.properties")
+            def keyPropertiesFile = rootProject.file("app/src/debug/java/io/hypertrack/placeline/key.properties")
             if (keyPropertiesFile == null || !keyPropertiesFile.exists()) {
                 throw new GradleException("key.properties file is missing that contains HyperTrack Publishable Key." +
                         "\nRefer Step 2 at https://github.com/hypertrack/hypertrack-live-android#to-use-this-app for more info.");
             }
             def keyProperties = new Properties();
             keyProperties.load(new FileInputStream(keyPropertiesFile));
-            if (keyProperties['HYPERTRACK_DEBUG_PUBLISHABLE_KEY'] == "\"YOUR_HYPERTRACK_PUBLISHABLE_KEY\"") {
+            if (keyProperties['HYPERTRACK_PUBLISHABLE_KEY'] == "\"YOUR_HYPERTRACK_PUBLISHABLE_KEY\"") {
                 throw new GradleException("Publishable Key is Missing in key.properties file.\nRefer Step 2 at https://github.com/hypertrack/hypertrack-live-android#to-use-this-app for more info.");
             }
             debuggable true
             minifyEnabled false
             versionNameSuffix '-debug'
             applicationIdSuffix '.debug'
-            buildConfigField "String", "HYPERTRACK_PK", keyProperties['HYPERTRACK_DEBUG_PUBLISHABLE_KEY']
+            buildConfigField "String", "HYPERTRACK_PK", keyProperties['HYPERTRACK_PUBLISHABLE_KEY']
             resValue "string", "app_name", "Debug Placeline"
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             if (!fabricCheck) {
