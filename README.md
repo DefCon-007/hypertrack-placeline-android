@@ -36,7 +36,7 @@ HyperTrack.initialize(this.getApplicationContext(), BuildConfig.HYPERTRACK_PK);
 ```
 3. To track your users through the day, set up a rule that auto-creates an action at the start of the day and auto-completes it at the end of the day. Visit [HyperTrack Dashboard settings](https://dashboard.hypertrack.com/settings) to set up the rule. 
 
-4. Get the [Google Maps API key](https://developers.google.com/maps/documentation/android-api/signup) and add it to [api-keys.xml](https://github.com/hypertrack/hypertrack-live-android/blob/master/app/src/main/res/values/api-keys.xml).
+4. Get the [Google Maps API key](https://developers.google.com/maps/documentation/android-api/signup) and add it to [api-keys.xml](https://github.com/hypertrack/hypertrack-placeline-android/blob/develop/app/src/main/res/values/api-keys.xml).
 
 
 ## Build within your app
