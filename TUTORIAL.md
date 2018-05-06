@@ -1,17 +1,16 @@
-
-# Build live location sharing within your app
-Following this tutorial to build live location share within your app. 
+# Build Placeline within your own app
+Following this tutorial to track your users through the day, and show a placeline view within the app. 
 
 <p align="center">
 <kbd>
-<img src="http://res.cloudinary.com/hypertrack/image/upload/v1524554407/HyperTrack_Live_Android.gif" alt="Live Location Sharing" width="300">
+<img src="http://res.cloudinary.com/hypertrack/image/upload/v1524554794/HT_Placeline.gif" alt="Live Location Sharing" width="300">
 </kbd>
 </p>
 
 The tutorial is divided into three sections.
 1. In the first section, we will do a basic setup of Hypertrack SDK. 
-2. In the second section, we will select a destination and start a Live Location trip to that place. 
-3. In the last section, we will get your friend to join the trip started by you. 
+2. In the second section, we will set up rules to track users throught he day. 
+3. In the last section, we will build a Placeline view within your app.
 
 Let's get started 😊. Strap yourself in and get ready for an exciting ride 🚀.
 
@@ -22,18 +21,15 @@ Let's get started 😊. Strap yourself in and get ready for an exciting ride �
   - [Set permissions](#Step-4-Set-permissions)
   - [Create HyperTrack user](#Step-5-Create-HyperTrack-user)
   - [Crashlytics Setup (optional)](#step-6-crashlytics-setup-optional)
-- [Start a trip](#start-a-trip)
-  - [Add destination](#step-1-add-destination)
-  - [Create and track action](#step-2-create-and-track-action)
-  - [Share your trip](#step-3-share-your-trip)
-- [Track or join an ongoing trip](#track-or-join-an-ongoing-trip)
-  - [Track ongoing trip](#step-1-track-ongoing-trip)
-  - [Join ongoing trip](#step-2-join-ongoing-trip)
-
+- [Track users through the day](#track-users-through-the-day)
+- [Build Placeline view](#build-placeline-view)
+  - [Understand Placeline format](#understand-placeline-format)
+  - [Get Placeline data in your app](#get-placeline-data-in-your-app)
+  - [Get Placeline view in your Android app](#get-placeline-view-in-your-android-app)
   
 ## Basic Setup
 ### Step 1. Get API keys
-Get your HyperTrack API keys [here](https://www.hypertrack.com/signup?utm_source=github&utm_campaign=ht_live_android).
+Get your HyperTrack API keys [here](https://www.hypertrack.com/signup?utm_source=github&utm_campaign=ht_placeline_android).
 
 ### Step 2. Install SDK
 1. Import our SDK into your app
@@ -182,187 +178,126 @@ You can **optionally** enable the crashlytics crash reporting tool.
 1. Get your Crashlytics key from the **Add Your API Key** section [here](https://fabric.io/kits/android/crashlytics/install).
 2. Paste the key to [fabric.properties](https://github.com/hypertrack/hypertrack-live-android/blob/master/app/fabric.properties). Create a new fabric.properties file, if it doesn't exist already.
 
-## Start a trip
-You are now all set with the basic setup. Are you ready to rock and roll?
+## Track users through the day
+To track your users through the day, set up a rule that auto-creates an action at the start of the day and auto-completes it at the end of the day. Visit [HyperTrack Dashboard settings](https://dashboard.hypertrack.com/settings) to set up the rule. 
 
-### Step 1. Add destination
-The first thing that you need to do is to add a destination. For this, we will need a location picker. HyperTrack SDK has a location picker within it. Once the user selects a location with the help of our inbuilt location picker, the SDK gives a callback to the app with the selected location so that the app can start a trip.
+## Build Placeline view
+### Understand Placeline format
+Placeline object is a list of activity segments, where each segment is defined by a start and an end timestamp, and has relevant location, activity and health data as properties. The Placeline object includes segments like **stop**, **walk**, and **drive**. See an example JSON representation [here](https://docs.hypertrack.com/api/entities/action.html#placeline).
 
-For  starter project, check ```Home.java``` embedding the HyperTrackMapFragment view in  ```content_home.xml``` view. Initialize the HyperTrackMapFragment inside ```oncreate``` method of ```Home``` activity and set your implementation of [HyperTrackMapAdapter](https://github.com/hypertrack/hypertrack-live-android/blob/master/app/src/main/java/io/hypertrack/sendeta/view/HomeMapAdapter.java), [MapFragmentCallback](https://github.com/hypertrack/hypertrack-live-android/blob/6c801e65a628769cd160ef7b0b4f77fd68df7818/app/src/main/java/io/hypertrack/sendeta/view/Home.java#L137-L213) for HyperTrackMapFragment.
+### Get Placeline data in your app
+Once the `track-through-the-day` action has been created for your users (via a rule), implement the following function [placelineManager.getPlacelineData()](https://github.com/hypertrack/hypertrack-live-android/blob/master/app/src/main/java/io/hypertrack/sendeta/store/PlacelineManager.java#L43) and get [PlacelineData](https://github.com/hypertrack/hypertrack-live-android/blob/master/app/src/main/java/io/hypertrack/sendeta/model/PlacelineData.java). You are all set to use the rich activity data in your app.
 
 ```java
-MapFragmentCallback callback = new MapFragmentCallback(){
+Date date = new Date();
+HyperTrack.getPlaceline(date, new HyperTrackCallback() {
     @Override
-    public void onMapReadyCallback(HyperTrackMapFragment hyperTrackMapFragment, GoogleMap map) {
-        // Handle onMapReadyCallback API here
-    }
-
-    @Override
-    public void onExpectedPlaceSelected(Place expectedPlace) {
-        // Check if expected place was selected
-        if (expectedPlace != null) {
-            // Handle selected expectedPlace here
+    public void onSuccess(@NonNull SuccessResponse response) {
+        // Handle getPlaceline success here
+        if (response != null) {
+            PlacelineData = (PlacelineData) response.getResponseObject();
         }
     }
-    ...
-};
+
+    @Override
+    public void onError(@NonNull ErrorResponse errorResponse) {
+        // Handle getPlaceline error here
+        Log.d("Placeline", "onError: " + errorResponse.getErrorMessage());
+    }
+});
 ```
+
+### Get Placeline view in your Android app
+
+#### Step 1: Setup Activity
+
+* **Firstly**, add the following xml snippet in your view layout to enable `PlacelineFragment`.
+
+```xml
+<fragment
+    android:id="@+id/placeline_fragment"
+    android:name="com.hypertrack.lib.internal.consumer.view.Placeline.PlacelineFragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:layout="@layout/placeline_fragment" />
+```
+
+* **Secondly**, instantiate `PlacelineFragment` in the onCreate method of the activity in which placeline fragment has been included.
 
 ```java
-htMapFragment = (HyperTrackMapFragment) getSupportFragmentManager()
-        .findFragmentById(R.id.htMapfragment);
-HomeMapAdapter adapter = new HomeMapAdapter(this);
-htMapFragment.setHTMapAdapter(adapter);
-htMapFragment.setMapFragmentCallback(callback);
+PlacelineFragment placelineFragment = (PlacelineFragment) getSupportFragmentManager().findFragmentById(R.id.placeline_fragment);
 ```
 
-Implement this method in the MapFragmentCallback as specified above. You will get a callback when a user selects an expected place using SDK's Place Selector View.
+Once all of the above is done, the code snippet would look like as below.
+
 ```java
 @Override
-public void onExpectedPlaceSelected(Place expectedPlace) {
-    // Check if expected place was selected
-    if (expectedPlace != null) {
-        // Handle selected expectedPlace here
-    }
+protected void onCreate(Bundle savedInstanceState) {
+  super.onCreate(savedInstanceState);
+
+  ...
+
+  // Initialize Placeline Fragment added in Activity Layout
+  PlacelineFragment placelineFragment = (PlacelineFragment) getSupportFragmentManager().findFragmentById(R.id.placeline_fragment); 
+
+  ...
 }
 ```
 
-### Step 2. Create and track action
-When the user selects a destination, you will get a callback in the ```onExpectedPlaceSelected``` function of your ```MapFragmentCallback``` instance. This is the right time to start a trip. For starting a trip, you need to create a session. This can be achieved by creating a 'visit' [action](https://docs.hypertrack.com/api/entities/action.html).  
+#### Step 2: Disable ActionBar
 
-You will need two things to create an action. 
-1. ```expectedPlace``` - This is the destination for the visit. You have it after you select the destination.
-2. ```collectionId``` - A ```collectionId``` is an identifier created by you for the Live Location trip. A ```collectionId``` is what needs to be shared with the friend, so they can join your trip and share their location. We chose it to be the UUID. You can use your own internal identifiers. 
+In case your AppTheme adds an ActionBar by default, disable the default Action Bar for the activity containing PlacelineFragment by adding the following under your Activity's theme style-tag in styles.xml file. Refer to Android documentation on [Setting up the AppBar](https://developer.android.com/training/appbar/setting-up.html).
 
-For starter project, go to [Home.java](https://github.com/hypertrack/hypertrack-live-android/blob/master/app/src/main/java/io/hypertrack/sendeta/view/Home.java#L194-L199) and add the following code when you get a callback of place selection ```onExpectedPlaceSelected```.
-```java
-ActionParams actionParams = new ActionParamsBuilder()
-                .setCollectionId(collectionId != null ? collectionId : UUID.randomUUID().toString())
-                .setType(Action.ACTION_TYPE_VISIT)
-                .setExpectedPlace(expectedPlace)
-                .build();
-
-// Call createAction to create an action
-HyperTrack.createAction(actionParams, new HyperTrackCallback() {
-    @Override
-    public void onSuccess(@NonNull SuccessResponse response) {
-        if (response.getResponseObject() != null) {
-            Action action = (Action) response.getResponseObject();
-            
-            // Handle createAction API success here
-            Toast.makeText(this, "Live location shared", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    @Override
-    public void onError(@NonNull ErrorResponse errorResponse) {
-        // Handle createAction API error here
-        Toast.makeText(this, "Live location not shared", Toast.LENGTH_SHORT).show();
-    }
-});
+```xml
+<!-- Change Placeline activity's theme to remove default ActionBar. -->
+<style name="PlacelineActivityTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    ...
+    <!-- We will be using the toolbar so no need to show ActionBar -->
+    <item name="windowActionBar">false</item>
+    <item name="windowNoTitle">true</item>
+    <item name="colorAccent">@color/colorAccent</item>
+	  ...
+</style>
 ```
 
-Also, allow user to stop sharing his location by handling `stopSharing` method in [HomePresenter.java](https://github.com/hypertrack/hypertrack-live-android/blob/master/app/src/main/java/io/hypertrack/sendeta/presenter/HomePresenter.java) file so the action gets completed when the user taps stop sharing.
+Add the `android:theme` attribute to the `<activity>` tag in `AndroidManifest.xml` file.
 
-```java
-HyperTrack.completeAction(actionID);
+```xml
+<!-- Placeline Activity Tag -->
+ <activity android:name=".PlacelineActivity"
+    android:theme="@style/PlacelineActivityTheme"/>
 ```
 
-### Step 3. Share your trip
-As described earlier, a ```collectionId``` is an identifier which identifies a Live Location trip. When you want to share your trip, your trip's ```collectionId``` needs to be shared.
 
-You can share your ```collectionId``` to the other person in different ways. 
+#### Step 3: Start Placeline Activity
 
-1. You can use the Android's ShareCard Intent to share it through messaging apps.
-2. You can use your backend to send the ```collectionId```. 
+Placeline Activity can be the `Launcher activity` or it can start from some other activity as normal activity.
 
-For starter project, let us keep it simple and use Android's ShareCard to do the job for us.
-```java
-Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
-sharingIntent.setType("text/plain");
-sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareMessage);
-startActivityForResult(Intent.createChooser(sharingIntent, "Share via"),
-        Constants.SHARE_REQUEST_CODE);
+**Launcher Activity**
+
+Add the following xml snippet in your `AndroidManifest.xml` file to make `PlacelineActivity` as a launcher activity.
+
+
+```xml
+<activity
+    android:name=".PlacelineActivity"
+    android:theme="@style/PlacelineActivityTheme">
+    <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
+        <category android:name="android.intent.category.LAUNCHER" />
+    </intent-filter>
+</activity>
 ```
 
-## Track or join an ongoing trip
-You now have a user who has started a Live Location session. Once their friend receives a ```collectionId``` (either through your own backend or through a messaging app), she can use it to track the user and optionally join the trip by adding the few lines of code as described in the following steps.
+**Normal Activity**
 
-### Step 1. Track ongoing trip
-To track the user, use the following function. Although the tracking has started in the SDK, visualizing it requires you to embed HyperTrack's map fragment in your activity containing hypertrack map view. 
+Add the following snippet in your activity from which you want to start `PlacelineActivity`.
+
+
 ```java
-HyperTrack.trackActionByCollectionId(collectionId, new HyperTrackCallback() {
-    @Override
-    public void onSuccess(@NonNull SuccessResponse response) {
-        // Handle trackActionByCollectionId API success here
-    }
- 
-    @Override
-    public void onError(@NonNull ErrorResponse errorResponse) {
-        // Handle trackActionByCollectionId API error here
-    });
-```
- 
-For starter project, you have to enter the ```collectionId``` in the text field that you have received from the user who has started the session. Add the following code in the click of track button ```onTrackSharedLinkButtonClick()```.
- 
-```java
-ActionParams actionParams = new ActionParamsBuilder()
-                .setCollectionId(collectionId != null ? collectionId : UUID.randomUUID().toString())
-                .setType(Action.ACTION_TYPE_VISIT)
-                .setExpectedPlace(expectedPlace)
-                .build();
-
-// Call createAction to create an action
-HyperTrack.createAction(actionParams, new HyperTrackCallback() {
-    @Override
-    public void onSuccess(@NonNull SuccessResponse response) {
-        if (response.getResponseObject() != null) {
-            Action action = (Action) response.getResponseObject();
-            
-            // Handle createAction API success here
-            Toast.makeText(this, "Live location shared", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    @Override
-    public void onError(@NonNull ErrorResponse errorResponse) {
-        // Handle createAction API error here
-        Toast.makeText(this, "Live location not shared", Toast.LENGTH_SHORT).show();
-    }
-});
-```
- 
-Now to see the result, go to the other device and set up the user. After that click on 'Track a Live Location trip' and paste/enter the ```collectionId``` which you received from the user. 
- 
-### Step 2. Join ongoing trip
-In this step, we will see how the friend can share her Live Location and join the trip. To join the trip, an action with the same collectionId needs to be created. This step is similar to Step 6. But this time it is a collectionId of an existing trip and NOT a new one in Step 6.
-
-For starter project, add this code to `onShareLiveLocationBack()` when the user taps the 'Share Live Location' button. It creates an action for your friends' Live Location session.
-```java
-ActionParams actionParams = new ActionParamsBuilder()
-                .setCollectionId(collectionId != null ? collectionId : UUID.randomUUID().toString())
-                .setType(Action.ACTION_TYPE_VISIT)
-                .setExpectedPlace(expectedPlace)
-                .build();
-
-// Call assignAction to start the tracking action
-HyperTrack.createAction(actionParams, new HyperTrackCallback() {
-    @Override
-    public void onSuccess(@NonNull SuccessResponse response) {
-        if (response.getResponseObject() != null) {
-            Action action = (Action) response.getResponseObject();
-            
-            // Handle createAction API success here
-            Toast.makeText(this, "Live location shared", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    @Override
-    public void onError(@NonNull ErrorResponse errorResponse) {
-        // Handle createAction API error here
-        Toast.makeText(this, "Live location not shared", Toast.LENGTH_SHORT).show();
-    }
-});
+public void startPlaceline(View view) {
+    startActivity(new Intent(this, PlacelineActivity.class));
+}
 ```
 
-We hope you’ve enjoyed yourself on your epic quest to build a Live Location Sharing feature. If you have any problems or suggestions for the tutorial, do not hesitate to buzz 🐝 us on [Slack](http://slack.hypertrack.com) or email us at help@hypertrack.com.
+If you have any problems or suggestions for the tutorial, do not hesitate to buzz 🐝 us on [Slack](http://slack.hypertrack.com) or email us at help@hypertrack.com.
