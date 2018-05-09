@@ -48,13 +48,14 @@
         app:layout_constraintTop_toBottomOf="@+id/profile.image_view"
         app:layout_constraintVertical_bias="0.258" />
 
-    <io.hypertrack.placeline.view.DashedLine
+    <com.hypertrack.lib.placeline.DividerView
         android:id="@+id/dashedLine"
         android:layout_width="match_parent"
         android:layout_height="10dp"
+        android:layout_marginRight="@dimen/margin_medium"
         android:layout_marginTop="32dp"
-        app:dashGap="6dp"
-        app:dashThickness="2dp"
+        app:dashGap="3dp"
+        app:dashLength="3dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tracking_switch"
