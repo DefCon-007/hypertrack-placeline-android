@@ -26,21 +26,21 @@ package io.hypertrack.placeline.view;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.graphics.PorterDuff.Mode;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.TaskStackBuilder;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
 import com.hypertrack.lib.HyperTrack;
 import com.hypertrack.lib.internal.common.util.HTTextUtils;
-
 import io.hypertrack.placeline.R;
-import io.hypertrack.placeline.util.AnimationUtils;
 import io.hypertrack.placeline.util.CrashlyticsWrapper;
 
 /**
@@ -49,8 +49,14 @@ import io.hypertrack.placeline.util.CrashlyticsWrapper;
 public class SplashScreen extends BaseActivity {
 
     private static final String TAG = SplashScreen.class.getSimpleName();
+
     private ProgressBar progressBar;
+
     Button enableLocation;
+
+    TextView mTextView;
+
+    ConstraintLayout locationPermissionLayout, splashLayout;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -63,19 +69,32 @@ public class SplashScreen extends BaseActivity {
         // Check for location settings and request in case not available
         if (HyperTrack.checkLocationPermission(this) &&
                 HyperTrack.checkLocationServices(this)) {
-            proceedToNextScreen();
+            splashLayout.setVisibility(View.VISIBLE);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    proceedToNextScreen();
+                }
+            }, 1000);
         } else {
-            enableLocation.setVisibility(View.VISIBLE);
+            if (!HTTextUtils.isEmpty(HyperTrack.getUserId())) {
+                locationPermissionLayout.setVisibility(View.VISIBLE);
+            } else {
+                splashLayout.setVisibility(View.VISIBLE);
+                requestForLocationSettings();
+            }
         }
+
     }
 
     public void initUI() {
         // Initialize UI Views
-
+        locationPermissionLayout = findViewById(R.id.location_permission_layout);
+        splashLayout = findViewById(R.id.splash_layout);
         enableLocation = findViewById(R.id.enable_location);
-        TextView permissionText = findViewById(R.id.permission_text);
         progressBar = findViewById(R.id.progress_bar);
-
+        mTextView = findViewById(R.id.app_name);
+        progressBar.getIndeterminateDrawable().setColorFilter(Color.WHITE, Mode.SRC_ATOP);
         // Initialize button click listeners
         enableLocation.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,18 +102,8 @@ public class SplashScreen extends BaseActivity {
                 requestForLocationSettings();
             }
         });
+        mTextView.setText(getString(R.string.app_name));
 
-        // Ask for enabling location permissions and location services to proceed further
-        if (!HyperTrack.checkLocationPermission(this) ||
-                !HyperTrack.checkLocationServices(this)) {
-            progressBar.setVisibility(View.INVISIBLE);
-            permissionText.setVisibility(View.VISIBLE);
-            enableLocation.setVisibility(View.VISIBLE);
-        }
-
-        // Start animation for ripple view
-        final ImageView locationRippleView = (ImageView) findViewById(R.id.location_ripple);
-        AnimationUtils.ripple(locationRippleView);
     }
 
     private void proceedToNextScreen() {
@@ -117,7 +126,8 @@ public class SplashScreen extends BaseActivity {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[],
+            @NonNull int[] grantResults) {
         if (requestCode == HyperTrack.REQUEST_CODE_LOCATION_PERMISSION) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 // Handle Location permission successfully granted response
@@ -125,7 +135,8 @@ public class SplashScreen extends BaseActivity {
 
             } else {
                 // Handle Location permission request denied error
-                enableLocation.setVisibility(View.VISIBLE);
+                locationPermissionLayout.setVisibility(View.VISIBLE);
+                splashLayout.setVisibility(View.GONE);
             }
         }
     }
@@ -139,7 +150,8 @@ public class SplashScreen extends BaseActivity {
 
             } else {
                 // Handle Location services request denied error
-                enableLocation.setVisibility(View.VISIBLE);
+                locationPermissionLayout.setVisibility(View.VISIBLE);
+                splashLayout.setVisibility(View.GONE);
             }
         }
     }
