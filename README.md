@@ -71,7 +71,6 @@ Following these steps to release the app on the Play Store.
 * [Scrolling Image View](https://github.com/Q42/AndroidScrollingImageView)
 * [RecylcerView Snap](https://github.com/rubensousa/RecyclerViewSnap)
 * [Leak Canary](https://github.com/square/leakcanary)
-* [Branch](https://branch.io/)
 * [Crashlytics](https://fabric.io/kits/android/crashlytics)
 
 ## Documentation

@@ -84,15 +84,6 @@
             </intent-filter>
         </receiver>
 
-        <!-- Branch install referrer tracking -->
-        <receiver
-            android:name="io.branch.referral.InstallListener"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="com.android.vending.INSTALL_REFERRER" />
-            </intent-filter>
-        </receiver>
-
         <receiver
             android:name=".receiver.BootReceiver"
             android:enabled="true"
@@ -124,20 +115,6 @@
         <!--   <meta-data
                android:name="io.fabric.ApiKey"
                android:value="YOUR_CRASHLYTICS_API_KEY" />-->
-
-        <!-- Branch init -->
-
-        <meta-data
-            android:name="io.branch.sdk.BranchKey"
-            android:value="@string/branch_live" />
-        <meta-data
-            android:name="io.branch.sdk.BranchKey.test"
-            android:value="@string/branch_test" />
-
-        <!-- Branch testing (TestMode "true" to simulate fresh installs on dev environment) -->
-        <meta-data
-            android:name="io.branch.sdk.TestMode"
-            android:value="false" />
 
         <!-- Register Services here -->
         <service
