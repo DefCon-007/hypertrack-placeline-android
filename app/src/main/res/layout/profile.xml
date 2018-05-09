@@ -53,10 +53,12 @@
         android:layout_width="match_parent"
         android:layout_height="10dp"
         android:layout_marginTop="32dp"
-        app:dashGap="5dp"
+        app:dashGap="6dp"
+        app:dashThickness="2dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tracking_switch" />
+        app:layout_constraintTop_toBottomOf="@+id/tracking_switch"
+        app:orientation="horizontal" />
 
     <Switch
         android:id="@+id/tracking_switch"
@@ -82,20 +84,27 @@
         android:paddingEnd="@dimen/padding_high"
         android:paddingRight="@dimen/padding_high"
         android:text="@string/about_hypertrack"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dashedLine" />
 
-    <TextView
+    <Button
         android:id="@+id/privacy_policy"
+        style="@style/TextAppearance.AppCompat.Light.Widget.PopupMenu.Small"
         android:layout_width="match_parent"
-        android:layout_height="16dp"
+        android:layout_height="30dp"
         android:layout_marginTop="12dp"
+        android:background="?android:attr/selectableItemBackground"
         android:drawableEnd="@drawable/ic_chevron_right"
         android:drawableRight="@drawable/ic_chevron_right"
+        android:gravity="left|center_vertical"
         android:onClick="onPrivacyPolicyClicked"
         android:paddingRight="@dimen/padding_high"
         android:text="@string/privacy_policy"
+        android:textAllCaps="false"
+        android:textColor="@android:color/secondary_text_light"
+        android:textSize="@dimen/text_base"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/about_hypertrack" />
@@ -140,8 +149,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_high"
         android:background="?android:attr/selectableItemBackground"
-        android:src="@drawable/places_ic_clear"
         android:onClick="close"
+        android:src="@drawable/places_ic_clear"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
