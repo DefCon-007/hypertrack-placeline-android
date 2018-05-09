@@ -29,7 +29,6 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.TaskStackBuilder;
 import android.view.View;
 import android.widget.Button;
@@ -39,8 +38,8 @@ import android.widget.TextView;
 
 import com.hypertrack.lib.HyperTrack;
 import com.hypertrack.lib.internal.common.util.HTTextUtils;
+
 import io.hypertrack.placeline.R;
-import io.hypertrack.placeline.model.AppDeepLink;
 import io.hypertrack.placeline.util.AnimationUtils;
 import io.hypertrack.placeline.util.CrashlyticsWrapper;
 
@@ -50,11 +49,8 @@ import io.hypertrack.placeline.util.CrashlyticsWrapper;
 public class SplashScreen extends BaseActivity {
 
     private static final String TAG = SplashScreen.class.getSimpleName();
-
-    private AppDeepLink appDeepLink;
     private ProgressBar progressBar;
-    private boolean autoAccept;
-    private String userID, accountID;
+    Button enableLocation;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -65,14 +61,20 @@ public class SplashScreen extends BaseActivity {
         initUI();
 
         // Check for location settings and request in case not available
-        requestForLocationSettings();
+        if (HyperTrack.checkLocationPermission(this) &&
+                HyperTrack.checkLocationServices(this)) {
+            proceedToNextScreen();
+        } else {
+            enableLocation.setVisibility(View.VISIBLE);
+        }
     }
 
     public void initUI() {
         // Initialize UI Views
-        Button enableLocation = (Button) findViewById(R.id.enable_location);
-        TextView permissionText = (TextView) findViewById(R.id.permission_text);
-        progressBar = (ProgressBar) findViewById(R.id.progress_bar);
+
+        enableLocation = findViewById(R.id.enable_location);
+        TextView permissionText = findViewById(R.id.permission_text);
+        progressBar = findViewById(R.id.progress_bar);
 
         // Initialize button click listeners
         enableLocation.setOnClickListener(new View.OnClickListener() {
@@ -83,7 +85,8 @@ public class SplashScreen extends BaseActivity {
         });
 
         // Ask for enabling location permissions and location services to proceed further
-        if (!HyperTrack.checkLocationPermission(this) || !HyperTrack.checkLocationServices(this)) {
+        if (!HyperTrack.checkLocationPermission(this) ||
+                !HyperTrack.checkLocationServices(this)) {
             progressBar.setVisibility(View.INVISIBLE);
             permissionText.setVisibility(View.VISIBLE);
             enableLocation.setVisibility(View.VISIBLE);
@@ -122,7 +125,7 @@ public class SplashScreen extends BaseActivity {
 
             } else {
                 // Handle Location permission request denied error
-                showSnackBar();
+                enableLocation.setVisibility(View.VISIBLE);
             }
         }
     }
@@ -136,7 +139,7 @@ public class SplashScreen extends BaseActivity {
 
             } else {
                 // Handle Location services request denied error
-                showSnackBar();
+                enableLocation.setVisibility(View.VISIBLE);
             }
         }
     }
@@ -157,28 +160,5 @@ public class SplashScreen extends BaseActivity {
         // Location Permissions and Settings have been enabled
         // Proceed with your app logic here
         proceedToNextScreen();
-    }
-
-    private void showSnackBar() {
-        if (!HyperTrack.checkLocationPermission(this)) {
-            // Handle Location permission request denied error
-            Snackbar.make(findViewById(R.id.parent_layout), R.string.location_permission_snackbar_msg,
-                    Snackbar.LENGTH_INDEFINITE).setAction("Allow", new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    requestForLocationSettings();
-                }
-            }).show();
-
-        } else if (HyperTrack.checkLocationServices(this)) {
-            // Handle Location services request denied error
-            Snackbar.make(findViewById(R.id.parent_layout), R.string.location_services_snackbar_msg,
-                    Snackbar.LENGTH_INDEFINITE).setAction("Enable", new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    requestForLocationSettings();
-                }
-            }).show();
-        }
     }
 }
