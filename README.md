@@ -11,7 +11,7 @@ Developers also use Placeline to record & visualize movement of their sales team
 </kbd>
 </p>
 
-Use this open source repo of the [Hypertrack Placeline](https://play.google.com/store/apps/details?id=io.hypertrack.sendeta&hl=en) app to build Placeline within your app within a few hours. The repo uses [HyperTrack](https://www.hypertrack.com/) APIs and SDKs. 
+Use this open source repo of the [Hypertrack Placeline](https://play.google.com/store/apps/details?id=io.hypertrack.placeline&hl=en) app to build Placeline within your app within a few hours. The repo uses [HyperTrack](https://www.hypertrack.com/) APIs and SDKs. 
 
 In case you are using iOS, refer to our open source iOS [repository](https://github.com/hypertrack/hypertrack-placeline-ios).
 
@@ -72,7 +72,6 @@ Following these steps to release the app on the Play Store.
 * [Scrolling Image View](https://github.com/Q42/AndroidScrollingImageView)
 * [RecylcerView Snap](https://github.com/rubensousa/RecyclerViewSnap)
 * [Leak Canary](https://github.com/square/leakcanary)
-* [Branch](https://branch.io/)
 * [Crashlytics](https://fabric.io/kits/android/crashlytics)
 
 ## Documentation
