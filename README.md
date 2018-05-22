@@ -30,26 +30,35 @@ In case you are using iOS, refer to our open source iOS [repository](https://git
 $ git clone https://github.com/hypertrack/hypertrack-placeline-android.git
 ```
 
-2. [Signup](https://www.hypertrack.com/signup?utm_source=github&utm_campaign=ht_placeline_android) to get your [HyperTrack API keys](https://dashboard.hypertrack.com/settings). Add the **publishable key** to [release key.properties](https://github.com/hypertrack/hypertrack-placeline-android/blob/develop/app/src/release/java/io/hypertrack/placeline/key.properties) and [debug key.properties](https://github.com/hypertrack/hypertrack-placeline-android/blob/develop/app/src/debug/java/io/hypertrack/placeline/key.properties) file.
+2. [Signup](https://www.hypertrack.com/signup?utm_source=github&utm_campaign=ht_placeline_android) to get your [HyperTrack API keys](https://dashboard.hypertrack.com/settings)(Publishable key).
+
+    Create two new files with name *key.properties* one at `app/src/release/java/io/hypertrack/placeline/` and second at `app/src/debug/java/io/hypertrack/placeline/`.
+     
+    Add this content to above created file.
+    ```properties
+        HYPERTRACK_PUBLISHABLE_KEY="ADD_YOUR_PUBLISHABLE_KEY_HERE"
+    ```
+   
+    Add the **publishable key** to [release key.properties](app/src/release/java/io/hypertrack/placeline/key.properties) and [debug key.properties](app/src/debug/java/io/hypertrack/placeline/key.properties) file.
 ```java
 HyperTrack.initialize(this.getApplicationContext(), BuildConfig.HYPERTRACK_PK);
 ```
 3. To track your users through the day, set up a rule that auto-creates an action at the start of the day and auto-completes it at the end of the day. Visit [HyperTrack Dashboard settings](https://dashboard.hypertrack.com/settings) to set up the rule. 
 
-4. Get the [Google Maps API key](https://developers.google.com/maps/documentation/android-api/signup) and add it to [api-keys.xml](https://github.com/hypertrack/hypertrack-placeline-android/blob/develop/app/src/main/res/values/api-keys.xml).
+4. Get the [Google Maps API key](https://developers.google.com/maps/documentation/android-api/signup) and add it to [api-keys.xml](app/src/main/res/values/api-keys.xml).
 
 
 ## Build within your app
-[Follow this step-by-step tutorial](https://github.com/hypertrack/hypertrack-placeline-android/blob/master/TUTORIAL.md) to track your users through the day, and show a placeline view within your app.
+[Follow this step-by-step tutorial](TUTORIAL.md) to track your users through the day, and show a placeline view within your app.
 
 ## Release to Playstore
 Following these steps to release the app on the Play Store.
 
-1. Change the package name in the [AndroidManifest.xml](https://github.com/hypertrack/hypertrack-live-android/blob/master/app/src/main/AndroidManifest.xml#L4) file.
+1. Change the package name in the [AndroidManifest.xml](app/src/main/AndroidManifest.xml#L4) file.
 
 2. Refactor the name of your package. Right click → Refactor → Rename in the tree view. Android Studio will display a window. Select "Rename package" option.
 
-3. Change the application id in [build.gradle](https://github.com/hypertrack/hypertrack-live-android/blob/master/app/build.gradle#L102) file. Once done, clean and rebuild the project.
+3. Change the application id in [build.gradle](app/build.gradle#L102) file. Once done, clean and rebuild the project.
    - Add `release key store file` in app level folder.
    - Create a `keystore.properties` file in root or project level folder with key-values pair.
     ```properties
@@ -65,8 +74,6 @@ Following these steps to release the app on the Play Store.
 * [Google libphonenumber library](https://github.com/googlei18n/libphonenumber/)
 * [Square Retrofit](https://github.com/square/retrofit)
 * [Square Picasso](https://github.com/square/picasso)
-* [tajchert WaitingDots](https://github.com/tajchert/WaitingDots)
-* [Compact Calendar View](https://github.com/SundeepK/CompactCalendarView)
 * [Android Ripple Background](https://github.com/skyfishjy/android-ripple-background)
 * [Scrolling Image View](https://github.com/Q42/AndroidScrollingImageView)
 * [RecylcerView Snap](https://github.com/rubensousa/RecyclerViewSnap)
