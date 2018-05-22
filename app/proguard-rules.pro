@@ -61,4 +61,3 @@
 
 ## Other
 -dontwarn com.google.common.**
--dontwarn io.branch.**

@@ -27,7 +27,6 @@ package io.hypertrack.placeline.view;
 
 import android.Manifest;
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -39,7 +38,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
-
 import com.google.android.gms.maps.GoogleMap;
 import com.hypertrack.lib.HyperTrack;
 import com.hypertrack.lib.HyperTrackUtils;
@@ -47,7 +45,7 @@ import com.hypertrack.lib.MapFragmentCallback;
 import com.hypertrack.lib.placeline.PlacelineActivitySummaryView;
 import com.hypertrack.lib.tracking.MapProvider.HyperTrackMapFragment;
 import com.hypertrack.lib.tracking.MapProvider.MapFragmentView;
-
+import com.hypertrack.lib.tracking.basemvp.BaseView;
 import io.hypertrack.placeline.R;
 import io.hypertrack.placeline.util.PermissionUtils;
 
@@ -56,10 +54,10 @@ public class Home extends AppCompatActivity {
     private static final String TAG = Home.class.getSimpleName();
 
     HyperTrackMapFragment mHyperTrackMapFragment;
-    private HomeMapAdapter mMapAdapter;
-    private GoogleMap mMap;
 
-    private ProgressDialog mProgressDialog;
+    private HomeMapAdapter mMapAdapter;
+
+    private GoogleMap mMap;
 
     PlacelineActivitySummaryView mPlacelineActivitySummaryView;
 
@@ -68,15 +66,17 @@ public class Home extends AppCompatActivity {
         @Override
         public void onMapReadyCallback(Context context, GoogleMap map) {
             mMap = map;
-            if (checkForLocationSettings())
+            if (checkForLocationSettings()) {
                 mMap.setMyLocationEnabled(true);
+            }
             super.onMapReadyCallback(context, map);
         }
 
         @Override
         public boolean onBackButtonPressed() {
-            if (mHyperTrackMapFragment == null)
+            if (mHyperTrackMapFragment == null) {
                 return false;
+            }
 
             if (mHyperTrackMapFragment.getUseCaseType() == MapFragmentView.Type.PLACELINE) {
                 setPlacelineSummaryViewUseCase();
@@ -160,12 +160,13 @@ public class Home extends AppCompatActivity {
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[],
-                                           @NonNull int[] grantResults) {
+            @NonNull int[] grantResults) {
         if (requestCode == HyperTrack.REQUEST_CODE_LOCATION_PERMISSION) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 checkForLocationSettings();
 
-            } else if (!ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
+            } else if (!ActivityCompat
+                    .shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
                 PermissionUtils.showPermissionDeclineDialog(this, Manifest.permission.ACCESS_FINE_LOCATION,
                         getString(R.string.location_permission_never_allow));
             }

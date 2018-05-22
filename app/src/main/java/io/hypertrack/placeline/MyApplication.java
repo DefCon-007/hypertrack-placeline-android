@@ -27,16 +27,12 @@ package io.hypertrack.placeline;
 import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
 import android.util.Log;
-
 import com.crashlytics.android.Crashlytics;
 import com.hypertrack.lib.HyperTrack;
 import com.hypertrack.lib.internal.common.util.HTTextUtils;
 import com.squareup.leakcanary.LeakCanary;
-
-import io.branch.referral.Branch;
 import io.fabric.sdk.android.Fabric;
 import io.fabric.sdk.android.services.common.ApiKey;
-import io.hypertrack.placeline.util.DevDebugUtils;
 
 /**
  * Created by suhas on 11/11/15.
@@ -46,7 +42,7 @@ public class MyApplication extends MultiDexApplication {
     @Override
     public void onCreate() {
         super.onCreate();
-        MultiDex.install(this   );
+        MultiDex.install(this);
 
         if (LeakCanary.isInAnalyzerProcess(this)) {
             // This process is dedicated to LeakCanary for heap analysis.
@@ -68,9 +64,6 @@ public class MyApplication extends MultiDexApplication {
         HyperTrack.initialize(this.getApplicationContext(), BuildConfig.HYPERTRACK_PK);
         HyperTrack.enableMockLocations(true);
         HyperTrack.disablePersistentNotification(true);
-
-        // Initialize Branch.io
-        Branch.getAutoInstance(this);
 
         // (NOTE: IFF current Build Variant is DEBUG)
         // Initialize Stetho to debug Databases

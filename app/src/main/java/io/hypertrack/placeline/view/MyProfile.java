@@ -1,8 +1,11 @@
 package io.hypertrack.placeline.view;
 
 import android.Manifest;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -59,6 +62,10 @@ public class MyProfile extends AppCompatActivity {
         setContentView(R.layout.profile);
         initView();
         setupView();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            getWindow().getDecorView().setImportantForAutofill(
+                    View.IMPORTANT_FOR_AUTOFILL_NO_EXCLUDE_DESCENDANTS);
+        }
     }
 
     private void setupView() {
@@ -147,11 +154,22 @@ public class MyProfile extends AppCompatActivity {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
                     io.hypertrack.placeline.util.Utils.hideKeyboard(MyProfile.this, nameView);
                     updateProfile();
+                    nameView.setCursorVisible(false);
                     return true;
                 }
                 return false;
             }
         });
+
+        nameView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                nameView.setCursorVisible(true);
+            }
+        });
+
+        nameView.setCursorVisible(false);
+
     }
 
     public void onProfileImageViewClicked(View view) {
@@ -280,11 +298,31 @@ public class MyProfile extends AppCompatActivity {
     }
 
     public void onHiringClicked(View view) {
+        try {
+            Intent myIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.hypertrack.com/jobs"));
+            startActivity(myIntent);
+        } catch (ActivityNotFoundException e) {
+            Toast.makeText(this, "No application can handle this request."
+                    + " Please install a webbrowser", Toast.LENGTH_LONG).show();
+            e.printStackTrace();
+        }
     }
 
     public void onPrivacyPolicyClicked(View view) {
+        try {
+            Intent myIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.hypertrack.com/privacy"));
+            startActivity(myIntent);
+        } catch (ActivityNotFoundException e) {
+            Toast.makeText(this, "No application can handle this request."
+                    + " Please install a webbrowser", Toast.LENGTH_LONG).show();
+            e.printStackTrace();
+        }
     }
 
     public void onAboutHyperTrackClicked(View view) {
+    }
+
+    public void close(View view) {
+        finish();
     }
 }

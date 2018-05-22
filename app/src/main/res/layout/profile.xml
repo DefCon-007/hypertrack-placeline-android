@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingLeft="@dimen/padding_xxhigh"
@@ -49,15 +48,18 @@
         app:layout_constraintTop_toBottomOf="@+id/profile.image_view"
         app:layout_constraintVertical_bias="0.258" />
 
-    <io.hypertrack.placeline.view.DashedLine
+    <com.hypertrack.lib.placeline.DividerView
         android:id="@+id/dashedLine"
         android:layout_width="match_parent"
         android:layout_height="10dp"
+        android:layout_marginRight="@dimen/margin_medium"
         android:layout_marginTop="32dp"
-        app:dashGap="5dp"
+        app:dashGap="3dp"
+        app:dashLength="3dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tracking_switch" />
+        app:layout_constraintTop_toBottomOf="@+id/tracking_switch"
+        app:orientation="horizontal" />
 
     <Switch
         android:id="@+id/tracking_switch"
@@ -83,20 +85,27 @@
         android:paddingEnd="@dimen/padding_high"
         android:paddingRight="@dimen/padding_high"
         android:text="@string/about_hypertrack"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dashedLine" />
 
-    <TextView
+    <Button
         android:id="@+id/privacy_policy"
+        style="@style/TextAppearance.AppCompat.Light.Widget.PopupMenu.Small"
         android:layout_width="match_parent"
-        android:layout_height="16dp"
+        android:layout_height="30dp"
         android:layout_marginTop="12dp"
+        android:background="?android:attr/selectableItemBackground"
         android:drawableEnd="@drawable/ic_chevron_right"
         android:drawableRight="@drawable/ic_chevron_right"
+        android:gravity="left|center_vertical"
         android:onClick="onPrivacyPolicyClicked"
         android:paddingRight="@dimen/padding_high"
         android:text="@string/privacy_policy"
+        android:textAllCaps="false"
+        android:textColor="@android:color/secondary_text_light"
+        android:textSize="@dimen/text_base"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/about_hypertrack" />
@@ -134,6 +143,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageButton
+        android:id="@+id/close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_high"
+        android:background="?android:attr/selectableItemBackground"
+        android:onClick="close"
+        android:src="@drawable/places_ic_clear"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </android.support.constraint.ConstraintLayout>
