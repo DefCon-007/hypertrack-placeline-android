@@ -39,7 +39,8 @@ $ git clone https://github.com/hypertrack/hypertrack-placeline-android.git
         HYPERTRACK_PUBLISHABLE_KEY="ADD_YOUR_PUBLISHABLE_KEY_HERE"
     ```
    
-    Add the **publishable key** to [release key.properties](app/src/release/java/io/hypertrack/placeline/key.properties) and [debug key.properties](app/src/debug/java/io/hypertrack/placeline/key.properties) file.
+    Now replace `ADD_YOUR_PUBLISHABLE_KEY_HERE` with the **publishable key**.
+    
 ```java
 HyperTrack.initialize(this.getApplicationContext(), BuildConfig.HYPERTRACK_PK);
 ```
