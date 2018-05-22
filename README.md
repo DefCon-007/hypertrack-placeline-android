@@ -1,5 +1,5 @@
 # Placeline
-[![Build Status](https://travis-ci.org/hypertrack/hypertrack-live-android.svg?branch=master)](https://travis-ci.org/hypertrack/hypertrack-live-android) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/4fad0c93fd3749d690571a7a728ce047)](https://www.codacy.com/app/piyushguptaece/hypertrack-live-android?utm_source=github.com&utm_medium=referral&utm_content=hypertrack/hypertrack-live-android&utm_campaign=badger) [![Slack Status](http://slack.hypertrack.com/badge.svg)](http://slack.hypertrack.com) [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-HyperTrack%20Live-brightgreen.svg?style=flat)](https://android-arsenal.com/details/3/5754) [![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://opensource.org/licenses/MIT) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Slack Status](http://slack.hypertrack.com/badge.svg)](http://slack.hypertrack.com) [![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://opensource.org/licenses/MIT) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 Placeline is useful in tracking your daily activity. We automagically use the combination of device sensors - GPS, WiFi, network, accelerometer, pedometer, gyroscope, compass - to deliver accurate movement data (location + activity) with near-zero battery usage. Placeline is powered by the HyperTrack SDK which collects location and activity data for your users. It includes segments like stop 🛑, walk 🚶‍♀️,run 🏃‍♀️,drive 🏎️ and cycle 🚴. 
 
@@ -11,7 +11,7 @@ Developers also use Placeline to record & visualize movement of their sales team
 </kbd>
 </p>
 
-Use this open source repo of the [Hypertrack Placeline](https://play.google.com/store/apps/details?id=io.hypertrack.sendeta&hl=en) app to build Placeline within your app within a few hours. The repo uses [HyperTrack](https://www.hypertrack.com/) APIs and SDKs. 
+Use this open source repo of the [Hypertrack Placeline](https://play.google.com/store/apps/details?id=io.hypertrack.placeline&hl=en) app to build Placeline within your app within a few hours. The repo uses [HyperTrack](https://www.hypertrack.com/) APIs and SDKs. 
 
 In case you are using iOS, refer to our open source iOS [repository](https://github.com/hypertrack/hypertrack-placeline-ios).
 
@@ -58,7 +58,7 @@ Following these steps to release the app on the Play Store.
 
 2. Refactor the name of your package. Right click → Refactor → Rename in the tree view. Android Studio will display a window. Select "Rename package" option.
 
-3. Change the application id in [build.gradle](app/build.gradle#L102) file. Once done, clean and rebuild the project.
+3. Change the application id in [build.gradle](app/build.gradle#L111) file. Once done, clean and rebuild the project.
    - Add `release key store file` in app level folder.
    - Create a `keystore.properties` file in root or project level folder with key-values pair.
     ```properties
@@ -84,7 +84,7 @@ Following these steps to release the app on the Play Store.
 For detailed documentation of the HyperTrack APIs and SDKs, customizations and what all you can build using HyperTrack, please visit the official [docs](https://www.hypertrack.com/docs).
 
 ## Contribute
-Feel free to clone, use, and contribute back via [pull requests](https://help.github.com/articles/about-pull-requests/). We'd love to see your pull requests - send them in! Please use the [issues tracker](https://github.com/hypertrack/hypertrack-live-android/issues) to raise bug reports and feature requests.
+Feel free to clone, use, and contribute back via [pull requests](https://help.github.com/articles/about-pull-requests/). We'd love to see your pull requests - send them in! Please use the [issues tracker](https://github.com/hypertrack/hypertrack-placeline-android/issues) to raise bug reports and feature requests.
 
 We are excited to see what live location feature you build in your app using this project. Do ping us at help@hypertrack.com once you build one, and we would love to feature your app on our blog!
 
